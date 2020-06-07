@@ -7,11 +7,19 @@
              x:Class="AirMonitor.Views.DetailsPage"
              xmlns:controls="clr-namespace:AirMonitor.Views.Controls"
              BackgroundColor="#f9f9f9"
-             xmlns:viewModels="clr-namespace:AirMonitor.ViewModels">
+             xmlns:viewModels="clr-namespace:AirMonitor.ViewModels"
+             xmlns:converters="clr-namespace:AirMonitor.Util.Converter">
     
     <ContentPage.BindingContext>
         <viewModels:DetailsViewModel/>
     </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:HumidityConverter x:Key="HumidityConverter"/>
+            <converters:PercentConverter x:Key="PercentConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ScrollView>
         <Grid>
@@ -34,7 +42,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span
-                                    Text="{Binding Caqi}"
+                                    Text="{Binding Caqi.Value}"
                                     FontAttributes="Bold"
                                     TextColor="Black"
                                     FontSize="32"/>
@@ -49,13 +57,13 @@
                     </Label>
                 </Frame>
                 <Label
-                    Text="Świetna jakość!"
+                    Text="{Binding Caqi.Title}"
                     FontSize="20"
                     TextColor="Black"
                     FontAttributes="Bold"
                     HorizontalTextAlignment="Center"/>
                 <Label
-                    Text="Możesz bezpiecznie wyjść z domu bez swojej maski anty-smogowej i nie bać się o swoje zdrowie."
+                    Text="{Binding Caqi.Description}"
                     FontSize="14"
                     TextColor="Black" />
 
@@ -76,15 +84,15 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span
-                                            Text="34"
+                                            Text="{Binding Pm25.Value}"
                                             TextColor="Black"
                                             FontSize="20"/>
-                                        <Span
+                                        <Span 
                                             Text=" mg/m3 "
                                             TextColor="Black"
                                             FontSize="14"/>
                                         <Span
-                                            Text="(137%)"
+                                            Text="{Binding Pm25.Percent, Converter={StaticResource PercentConverter}}"
                                             TextColor="Black"
                                             FontSize="20"/>
                                     </FormattedString>
@@ -109,7 +117,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span
-                                            Text="67"
+                                            Text="{Binding Pm10.Value}"
                                             TextColor="Black"
                                             FontSize="20"/>
                                         <Span
@@ -117,7 +125,7 @@
                                             TextColor="Black"
                                             FontSize="14"/>
                                         <Span
-                                            Text="(135%)"
+                                            Text="{Binding Pm10.Percent, Converter={StaticResource PercentConverter}}"
                                             TextColor="Black"
                                             FontSize="20"/>
                                     </FormattedString>
@@ -136,7 +144,7 @@
                     <controls:ContentWithHeader.ControlContent>
                         <StackLayout>
                             <Label
-                                Text="95%"
+                                Text="{Binding Air.Humidity, Converter={StaticResource HumidityConverter}}"
                                 FontSize="20"
                                 TextColor="Black" />
                             <Slider
