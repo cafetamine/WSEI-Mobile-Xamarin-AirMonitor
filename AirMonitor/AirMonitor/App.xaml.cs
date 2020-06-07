@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using AirMonitor.Views;
+using Xamarin.Forms;
 
 namespace AirMonitor
 {
@@ -8,8 +9,7 @@ namespace AirMonitor
         {
             InitializeComponent();
 
-            // TODO HomePage
-            MainPage = new NavigationPage(new HomePage());
+            MainPage = new NavigationTab();
         }
 
         protected override void OnStart()
