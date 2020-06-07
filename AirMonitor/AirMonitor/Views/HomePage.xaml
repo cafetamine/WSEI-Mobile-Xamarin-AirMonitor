@@ -9,6 +9,12 @@
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 Command="{Binding GoToDetailsCommand}"/>
+            
+            <Label Text="{Binding Latitude}"
+                   Style="{StaticResource CommonLabelStyle}"/>
+                   
+            <Label Text="{Binding Longitude}"
+                   Style="{StaticResource CommonLabelStyle}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

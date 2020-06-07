@@ -8,6 +8,8 @@ namespace AirMonitor.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
+        private HomeViewModel _viewModel => BindingContext as HomeViewModel;
+
         public HomePage()
         {
             InitializeComponent();
