@@ -19,6 +19,7 @@
         <ResourceDictionary>
             <converters:HumidityConverter x:Key="HumidityConverter"/>
             <converters:PercentConverter x:Key="PercentConverter"/>
+            <converters:PressureConverter x:Key="PressureConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -109,7 +110,8 @@
                             <Label Text="{Binding Air.Humidity, Converter={StaticResource HumidityConverter}}"
                                    Style="{StaticResource CommonLabelStyle}"/>
                             
-                            <Slider Style="{StaticResource SliderStyle}"/>
+                            <Slider Value="{Binding Air.Humidity}"
+                                    Style="{StaticResource SliderStyle}"/>
                         </StackLayout>
                     </controls:ContentWithHeader.ControlContent>
                 </controls:ContentWithHeader>
@@ -119,12 +121,12 @@
                 <controls:ContentWithHeader Title="Ciśnienie">
                     <controls:ContentWithHeader.ControlContent>
                         <StackLayout>
-                            <Label Text="1026 hPa"
+                            <Label Text="{Binding Air.Pressure, Converter={StaticResource PressureConverter}}"
                                    Style="{StaticResource CommonLabelStyle}"/>
 
                             <Slider Maximum="1100"
                                     Minimum="900"
-                                    Value="1026"
+                                    Value="{Binding Air.Pressure}"
                                     Style="{StaticResource SliderStyle}"/>
                         </StackLayout>
                     </controls:ContentWithHeader.ControlContent>
