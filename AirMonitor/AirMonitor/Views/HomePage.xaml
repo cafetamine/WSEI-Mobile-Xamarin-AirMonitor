@@ -4,7 +4,11 @@
              x:Class="AirMonitor.Views.HomePage">
     <ContentPage.Content>
         <StackLayout>
-            <Button Text="Air Report" Clicked="OnNavigationButtonTapped"/> 
+            <Button
+                Text="Air Report"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Command="{Binding GoToDetailsCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
