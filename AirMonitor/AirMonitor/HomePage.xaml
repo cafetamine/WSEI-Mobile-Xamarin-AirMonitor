@@ -5,9 +5,7 @@
              x:Class="AirMonitor.HomePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+            <Button Text="Air Report" Clicked="OnNavigationButtonTapped"/> 
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

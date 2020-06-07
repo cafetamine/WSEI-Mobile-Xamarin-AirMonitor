@@ -1,3 +1,5 @@
+using System;
+using AirMonitor.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,5 +12,10 @@ namespace AirMonitor
         {
             InitializeComponent();
         }
+        
+        private async void OnNavigationButtonTapped(object sender, EventArgs e)  
+        {  
+            await Navigation.PushAsync(new DetailsPage());
+        }  
     }
 }
