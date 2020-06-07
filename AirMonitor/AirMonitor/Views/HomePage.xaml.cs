@@ -1,5 +1,5 @@
 using System;
-using AirMonitor.ViewModel;
+using AirMonitor.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

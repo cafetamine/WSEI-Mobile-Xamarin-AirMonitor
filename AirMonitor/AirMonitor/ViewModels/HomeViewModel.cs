@@ -2,7 +2,7 @@ using System.Windows.Input;
 using AirMonitor.Views;
 using Xamarin.Forms;
 
-namespace AirMonitor.ViewModel
+namespace AirMonitor.ViewModels
 {
     public class HomeViewModel
     {

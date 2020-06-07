@@ -6,7 +6,12 @@
              mc:Ignorable="d"
              x:Class="AirMonitor.Views.DetailsPage"
              xmlns:controls="clr-namespace:AirMonitor.Views.Controls"
-             BackgroundColor="#f9f9f9">
+             BackgroundColor="#f9f9f9"
+             xmlns:viewModels="clr-namespace:AirMonitor.ViewModels">
+    
+    <ContentPage.BindingContext>
+        <viewModels:DetailsViewModel/>
+    </ContentPage.BindingContext>
 
     <ScrollView>
         <Grid>
@@ -29,7 +34,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span
-                                    Text="56"
+                                    Text="{Binding Caqi}"
                                     FontAttributes="Bold"
                                     TextColor="Black"
                                     FontSize="32"/>
