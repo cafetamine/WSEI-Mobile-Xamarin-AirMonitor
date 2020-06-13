@@ -22,4 +22,10 @@
   <ItemGroup>
     <EmbeddedResource Remove="MainPage.xaml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="AppProfile.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppProfile.json" />
+  </ItemGroup>
 </Project>
