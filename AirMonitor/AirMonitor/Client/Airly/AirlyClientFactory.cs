@@ -11,7 +11,7 @@ namespace AirMonitor.Client.Airly
         public static IAirlyClient CreateClient(IAirlyClientConfig config)
             => new AirlyClient(config, CreateClientOptions(config), CreateHttpClient(config));
 
-        private static IAirlyClientOptions CreateClientOptions(IAirlyClientConfig config)
+        private static AirlyClientOptions CreateClientOptions(IAirlyClientConfig config)
             => new AirlyClientOptions(config);
 
         private static HttpClient CreateHttpClient(IAirlyClientConfig config)

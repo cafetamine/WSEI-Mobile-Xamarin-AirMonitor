@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using AirMonitor.Client.Airly.Response;
+using AirMonitor.Client.Airly.Api.Measurement;
 using AirMonitor.Service.Location;
 using AirMonitor.Service.Measurements;
 using AirMonitor.Views;
@@ -19,7 +20,7 @@ namespace AirMonitor.ViewModels
         private bool _isBusy;
 
         private Location _location;
-        private List<ApiMeasurementResponse> _items;
+        private List<ApiMeasurement> _items;
 
         public HomeViewModel(INavigation navigation, ILocationService locationService, IMeasurementsService measurementsService)
         {
@@ -42,7 +43,7 @@ namespace AirMonitor.ViewModels
             set => SetProperty(ref _location, value);
         }
         
-        public List<ApiMeasurementResponse> Items
+        public List<ApiMeasurement> Items
         {
             get => _items;
             set => SetProperty(ref _items, value);

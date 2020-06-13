@@ -3,7 +3,7 @@ using AirMonitor.Profile.Client;
 
 namespace AirMonitor.Client.Airly.Client
 {
-    public class AirlyClientOptions : IAirlyClientOptions
+    public class AirlyClientOptions
     {
         private readonly IAirlyClientConfig _config;
 

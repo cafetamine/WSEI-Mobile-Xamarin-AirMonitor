@@ -1,6 +1,6 @@
 using System;
 
-namespace AirMonitor.Client.Airly
+namespace AirMonitor.Client.Airly.Client
 {
     public class AirlyApiClientFunction
     {

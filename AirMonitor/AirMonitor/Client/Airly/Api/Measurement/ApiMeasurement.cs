@@ -1,13 +1,13 @@
-using AirMonitor.Client.Airly.Response.Definition;
+using AirMonitor.Client.Airly.Api.Installation;
 
-namespace AirMonitor.Client.Airly.Response
+namespace AirMonitor.Client.Airly.Api.Measurement
 {
-    public class ApiMeasurementResponse
+    public class ApiMeasurement
     {
         public int CurrentDisplayValue { get; set; }
         public ApiMeasurementItem Current { get; set; }
         public ApiMeasurementItem[] History { get; set; }
         public ApiMeasurementItem[] Forecast { get; set; }
-        public ApiInstallationResponse Installation { get; set; }
+        public ApiInstallation Installation { get; set; }
     }
 }

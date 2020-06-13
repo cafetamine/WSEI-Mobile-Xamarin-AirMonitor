@@ -1,4 +1,4 @@
-namespace AirMonitor.Client.Airly.Response.Definition
+namespace AirMonitor.Client.Airly.Api.Measurement
 {
     public class ApiAirQualityStandard
     {

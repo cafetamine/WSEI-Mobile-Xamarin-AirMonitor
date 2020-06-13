@@ -4,7 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AirMonitor.Client.Airly.Response;
+using AirMonitor.Client.Airly.Api.Installation;
+using AirMonitor.Client.Airly.Api.Measurement;
 using AirMonitor.Client.Util;
 using AirMonitor.Profile.Client;
 using Newtonsoft.Json;
@@ -15,17 +16,17 @@ namespace AirMonitor.Client.Airly.Client
     public class AirlyClient : IAirlyClient
     {
         private readonly IAirlyClientConfig _config;
-        private readonly IAirlyClientOptions _options;
+        private readonly AirlyClientOptions _options;
         private readonly HttpClient _httpClient;
 
-        public AirlyClient(IAirlyClientConfig config, IAirlyClientOptions options, HttpClient httpClient)
+        public AirlyClient(IAirlyClientConfig config, AirlyClientOptions options, HttpClient httpClient)
         {
             _config = config;
             _options = options;
-            _httpClient = httpClient;
+            _httpClient = httpClient; 
         }
 
-        public async Task<IEnumerable<ApiInstallationResponse>> GetInstallations(Location location, double maxDistanceInKm = 3, int maxResults = -1)
+        public async Task<IEnumerable<ApiInstallation>> GetInstallations(Location location, double maxDistanceInKm = 3, int maxResults = -1)
         {
             if (location == null)
             {
@@ -41,12 +42,11 @@ namespace AirMonitor.Client.Airly.Client
                 { "maxResults", maxResults }
             });
             var url = _options.GetUrl(AirlyApiClientFunction.GetInstallations, query);
-            Console.WriteLine("XXX_url=" + url);
-            var response = await GetHttpResponseAsync<IEnumerable<ApiInstallationResponse>>(url);
+            var response = await GetHttpResponseAsync<IEnumerable<ApiInstallation>>(url);
             return response;
         }
 
-        public async Task<IEnumerable<ApiMeasurementResponse>> GetMeasurementsForInstallations(IEnumerable<ApiInstallationResponse> installations)
+        public async Task<IEnumerable<ApiMeasurement>> GetMeasurementsForInstallations(IEnumerable<ApiInstallation> installations)
         {
             if (installations == null)
             {
@@ -54,7 +54,7 @@ namespace AirMonitor.Client.Airly.Client
                 return null;
             }
 
-            var measurements = new List<ApiMeasurementResponse>();
+            var measurements = new List<ApiMeasurement>();
 
             foreach (var installation in installations)
             {
@@ -64,7 +64,7 @@ namespace AirMonitor.Client.Airly.Client
                 });
                 var url = _options.GetUrl(AirlyApiClientFunction.GetMeasurements, query);
 
-                var response = await GetHttpResponseAsync<ApiMeasurementResponse>(url);
+                var response = await GetHttpResponseAsync<ApiMeasurement>(url);
 
                 if (response != null)
                 {
@@ -91,6 +91,7 @@ namespace AirMonitor.Client.Airly.Client
 
                 switch ((int)response.StatusCode)
                 {
+                    // TODO handle 301 and 404
                     case 200:
                         var content = await response.Content.ReadAsStringAsync();
                         var result = JsonConvert.DeserializeObject<T>(content);

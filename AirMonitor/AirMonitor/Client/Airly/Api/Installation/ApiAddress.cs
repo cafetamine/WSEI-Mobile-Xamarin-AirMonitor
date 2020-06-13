@@ -1,4 +1,6 @@
-namespace AirMonitor.Client.Airly.Response.Definition
+using Newtonsoft.Json;
+
+namespace AirMonitor.Client.Airly.Api.Installation
 {
     public struct ApiAddress
     {
@@ -9,6 +11,6 @@ namespace AirMonitor.Client.Airly.Response.Definition
         public string DisplayAddress1 { get; set; }
         public string DisplayAddress2 { get; set; }
 
-        public string Description => $"{Street} {Number}, {City}";
+        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }
