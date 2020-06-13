@@ -1,15 +1,15 @@
 using System;
 using System.Net.Http;
+using AirMonitor.Client.Airly.Client;
 using AirMonitor.Client.Util;
+using AirMonitor.Profile.Client;
 
-namespace AirMonitor.Client.Airly.Client
+namespace AirMonitor.Client.Airly
 {
-    public class AirlyClientFactory
+    public static class AirlyClientFactory
     {
-        private static IAirlyClient CreateClient(IAirlyClientConfig config)
-        {
-            return new AirlyClient(config, CreateClientOptions(config), CreateHttpClient(config));
-        }
+        public static IAirlyClient CreateClient(IAirlyClientConfig config)
+            => new AirlyClient(config, CreateClientOptions(config), CreateHttpClient(config));
 
         private static IAirlyClientOptions CreateClientOptions(IAirlyClientConfig config)
             => new AirlyClientOptions(config);

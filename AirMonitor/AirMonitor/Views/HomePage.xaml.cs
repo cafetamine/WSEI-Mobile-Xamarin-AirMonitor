@@ -1,4 +1,5 @@
 using System;
+using AirMonitor.Infrastructure;
 using AirMonitor.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,7 +15,7 @@ namespace AirMonitor.Views
         {
             InitializeComponent();
 
-            BindingContext = new HomeViewModel(Navigation);
+            BindingContext = ViewModelFactory.MakeHomeViewModel(Navigation);
         }
         
         private async void OnNavigationButtonTapped(object sender, EventArgs e)  

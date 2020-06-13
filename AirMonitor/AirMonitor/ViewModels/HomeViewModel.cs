@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Input;
-using AirMonitor.Model.Api.Airly;
+using AirMonitor.Client.Airly;
 using AirMonitor.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -14,13 +11,15 @@ namespace AirMonitor.ViewModels
     public class HomeViewModel : AbstractViewModel
     {
         private readonly INavigation _navigation;
+        private readonly IAirlyClient _airlyClient;
         private bool _isBusy;
         private bool _isLocked;
         private Location _location;
 
-        public HomeViewModel(INavigation navigation)
+        public HomeViewModel(INavigation navigation, IAirlyClient airlyClient)
         {
             _navigation = navigation;
+            _airlyClient = airlyClient;
             
             Initialize();
         }

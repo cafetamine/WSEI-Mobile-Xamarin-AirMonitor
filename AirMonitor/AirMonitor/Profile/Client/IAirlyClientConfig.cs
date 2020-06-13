@@ -1,4 +1,4 @@
-namespace AirMonitor.Client.Airly
+namespace AirMonitor.Profile.Client
 {
     public interface IAirlyClientConfig
     {

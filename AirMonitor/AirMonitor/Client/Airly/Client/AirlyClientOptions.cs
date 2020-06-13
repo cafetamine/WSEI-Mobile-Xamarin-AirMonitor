@@ -1,4 +1,5 @@
 using AirMonitor.Client.Util;
+using AirMonitor.Profile.Client;
 
 namespace AirMonitor.Client.Airly.Client
 {

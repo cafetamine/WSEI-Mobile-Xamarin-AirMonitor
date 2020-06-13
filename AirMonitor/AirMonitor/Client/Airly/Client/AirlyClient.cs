@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AirMonitor.Client.Airly.Response;
 using AirMonitor.Client.Util;
+using AirMonitor.Profile.Client;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
 

@@ -23,8 +23,11 @@ namespace AirMonitor.Client.Util
             return builder.ToString();
         }
         
-        public static string GetBaseUrl(bool isSecure, string hostAddress, string apiPrefix, string apiVersion) 
-                => $"{GetProtocol(isSecure)}://{hostAddress}/{GetApiPrefix(apiPrefix)}{apiVersion}/";
+        public static string GetBaseUrl(bool isSecure,
+                                        string hostAddress,
+                                        string apiPrefix,
+                                        string apiVersion) 
+            => $"{GetProtocol(isSecure)}://{hostAddress}/{GetApiPrefix(apiPrefix)}{apiVersion}/";
 
         public static string GetQuery(IDictionary<string, object> queryParams)
         {

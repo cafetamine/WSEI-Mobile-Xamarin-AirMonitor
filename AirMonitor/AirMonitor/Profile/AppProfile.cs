@@ -1,29 +1,29 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AirMonitor.Client.Airly;
+using AirMonitor.Profile.Client;
 using Newtonsoft.Json.Linq;
 
 // TODO [ASAP'cos'SHAME] refactor
-namespace AirMonitor
+namespace AirMonitor.Profile
 {
-    public class AppProfile
+    public class AppProfile : IAppProfile
     {
         private const string ConfigFile = "AppProfile.json";
 
         private const string ClientKey = "client";
 
         private readonly ClientConfig _clientConfig;
-        private ClientConfig ClientConfiguration => _clientConfig;
+        public IClientConfig ClientConfiguration => _clientConfig;
 
         private AppProfile(ClientConfig clientConfig)
         {
             _clientConfig = clientConfig;
         }
 
-        public static async Task<AppProfile> Load()
+        public static async Task<IAppProfile> Load()
         {
             var assembly = Assembly.GetAssembly(typeof(App));
             var resourceNames = assembly.GetManifestResourceNames();
@@ -41,7 +41,7 @@ namespace AirMonitor
             }
         }
 
-        public class ClientConfig
+        public class ClientConfig : IClientConfig
         {
             private readonly IAirlyClientConfig _airlyConfig;
             public IAirlyClientConfig AirlyClientConfiguration => _airlyConfig;
