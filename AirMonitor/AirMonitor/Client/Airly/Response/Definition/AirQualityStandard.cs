@@ -1,6 +1,6 @@
-namespace AirMonitor.Model.Api.Airly
+namespace AirMonitor.Client.Airly.Response.Definition
 {
-    public class AirQualityStandard
+    public class ApiAirQualityStandard
     {
         public string Name { get; set; }
         public string Pollutant { get; set; }

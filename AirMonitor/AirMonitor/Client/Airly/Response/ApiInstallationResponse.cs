@@ -1,13 +1,14 @@
+using AirMonitor.Client.Airly.Response.Definition;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
 
-namespace AirMonitor.Model.Api.Airly
+namespace AirMonitor.Client.Airly.Response
 {
-    public class ApiInstallation
+    public class ApiInstallationResponse
     {
         public string Id { get; set; }
         public Location Location { get; set; }
-        public Address Address { get; set; }
+        public ApiAddress Address { get; set; }
         public double Elevation { get; set; }
 
         [JsonProperty(PropertyName = "airly")]

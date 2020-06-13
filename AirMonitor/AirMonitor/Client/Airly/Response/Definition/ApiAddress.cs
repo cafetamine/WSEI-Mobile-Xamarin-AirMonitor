@@ -1,6 +1,6 @@
-namespace AirMonitor.Model.Api.Airly
+namespace AirMonitor.Client.Airly.Response.Definition
 {
-    public struct Address
+    public struct ApiAddress
     {
         public string Country { get; set; }
         public string City { get; set; }
