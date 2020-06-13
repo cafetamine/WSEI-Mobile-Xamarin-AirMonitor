@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Input;
+using AirMonitor.Model.Api.Airly;
 using AirMonitor.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -68,6 +72,7 @@ namespace AirMonitor.ViewModels
             }
             return null;
         }
+        
 
         private ICommand _goToDetailsCommand;
         public ICommand GoToDetailsCommand =>

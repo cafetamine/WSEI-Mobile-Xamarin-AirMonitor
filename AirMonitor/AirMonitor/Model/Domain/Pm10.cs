@@ -1,4 +1,4 @@
-namespace AirMonitor.Model
+namespace AirMonitor.Model.Domain
 {
     public class Pm10
     {
