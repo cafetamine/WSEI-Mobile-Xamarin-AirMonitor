@@ -2,7 +2,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using AirMonitor.Client.Airly;
 using AirMonitor.Profile.Client;
 using Newtonsoft.Json.Linq;
 
@@ -11,9 +10,7 @@ namespace AirMonitor.Profile
 {
     public class AppProfile : IAppProfile
     {
-        private const string ConfigFile = "AppProfile.json";
-
-        private const string ClientKey = "client";
+        private const string ConfigFile = "AppProfileDev.json";
 
         private readonly ClientConfig _clientConfig;
         public IClientConfig ClientConfiguration => _clientConfig;
@@ -59,20 +56,20 @@ namespace AirMonitor.Profile
                 private const string ClientKey = "client";
                 private const string AirlyKey = "airly";
                 
-                public const string IsSecureKey = "isSecure";
-                public const bool IsSecureDefault = true;
+                private static readonly string IsSecureKey = $"{ClientKey}.{AirlyKey}.isSecure";
+                private const bool IsSecureDefault = true;
 
-                public const string HostAddressKey = "HostAddress";
-                public const string HostAddressDefault = "airapi.airly.eu";
+                private static readonly string HostAddressKey = $"{ClientKey}.{AirlyKey}.HostAddress";
+                private const string HostAddressDefault = "airapi.airly.eu";
                 
-                public const string ApiPrefixKey = "ApiPrefix";
-                public const string ApiPrefixDefault = null;
+                private static readonly string ApiPrefixKey = $"{ClientKey}.{AirlyKey}.ApiPrefix";
+                private const string ApiPrefixDefault = null;
                 
-                public const string ApiVersionKey = "ApiVersion";
-                public const string ApiVersionDefault = "v2";
+                private static readonly string ApiVersionKey = $"{ClientKey}.{AirlyKey}.ApiVersion";
+                private const string ApiVersionDefault = "v2";
                 
-                public const string ApiKeyKey = "ApiKey";
-                public const string ApiKeyDefault = "";
+                private static readonly string ApiKeyKey = $"{ClientKey}.{AirlyKey}.ApiKey";
+                private const string ApiKeyDefault = "";
                 
                 public bool IsSecure { get; }
                 public string HostAddress { get; }
@@ -95,17 +92,17 @@ namespace AirMonitor.Profile
 
                 public static AirlyClientConfig FromJson(JObject json)
                     => new AirlyClientConfig(
-                        isSecure:    ReadBool(  json, IsSecureKey,    IsSecureDefault),
-                        hostAddress: ReadString(json, HostAddressKey, HostAddressDefault),
-                        apiPrefix:   ReadString(json, ApiPrefixKey,   ApiPrefixDefault),
-                        apiVersion:  ReadString(json, ApiVersionKey,  ApiVersionDefault),
-                        apiKey:      ReadString(json, ApiKeyKey,      ApiKeyDefault));
+                        isSecure:    Read(json, IsSecureKey,    IsSecureDefault),
+                        hostAddress: Read(json, HostAddressKey, HostAddressDefault),
+                        apiPrefix:   Read(json, ApiPrefixKey,   ApiPrefixDefault),
+                        apiVersion:  Read(json, ApiVersionKey,  ApiVersionDefault),
+                        apiKey:      Read(json, ApiKeyKey,      ApiKeyDefault));
 
-                private static string ReadString(JObject json, string key, string defaultValue) 
-                    => json.ContainsKey(key) ? json[ClientKey][AirlyKey][key].Value<string>() : defaultValue;
-        
-                private static bool ReadBool(JObject json, string key, bool defaultValue = false) 
-                    => json.ContainsKey(key) ? json[ClientKey][AirlyKey][key].Value<bool>() : defaultValue;
+                private static T Read<T>(JObject json, string path, T defaultValue)
+                {
+                    var value = json.SelectToken(path);
+                    return value != null ? value.Value<T>() : defaultValue;
+                }
             }
         }
     }
