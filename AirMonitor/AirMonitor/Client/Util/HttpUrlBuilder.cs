@@ -49,12 +49,11 @@ namespace AirMonitor.Client.Util
                     query[arg.Key] = arg.Value?.ToString();
                 }
             }
-
             return query.ToString();
         }
 
         private static string GetProtocol(bool isSecure) => isSecure ? "https" : "http";
 
-        private static string GetApiPrefix(string apiPrefix) => string.IsNullOrEmpty(apiPrefix) ? $"{apiPrefix}/" : "";
+        private static string GetApiPrefix(string apiPrefix) => string.IsNullOrEmpty(apiPrefix) ?  "" : $"{apiPrefix}/";
     }
 }

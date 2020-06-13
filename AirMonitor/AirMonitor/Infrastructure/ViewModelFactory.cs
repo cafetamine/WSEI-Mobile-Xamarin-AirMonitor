@@ -1,4 +1,5 @@
-using AirMonitor.Client.Airly;
+using AirMonitor.Service.Location;
+using AirMonitor.Service.Measurements;
 using AirMonitor.ViewModels;
 using Xamarin.Forms;
 
@@ -8,8 +9,9 @@ namespace AirMonitor.Infrastructure
     public class ViewModelFactory
     {
         public static HomeViewModel MakeHomeViewModel(INavigation navigation)
-            => new HomeViewModel(navigation:  navigation,
-                                 airlyClient: AppDIContainer.Instance.Resolve<IAirlyClient>());
+            => new HomeViewModel(navigation:          navigation,
+                                 measurementsService: AppDIContainer.Instance.Resolve<IMeasurementsService>(),
+                                 locationService:     AppDIContainer.Instance.Resolve<ILocationService>());
 
         public static DetailsViewModel MakeDetailsViewModel() => new DetailsViewModel();
     }

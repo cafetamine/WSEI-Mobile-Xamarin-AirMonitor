@@ -41,7 +41,7 @@ namespace AirMonitor.Client.Airly.Client
                 { "maxResults", maxResults }
             });
             var url = _options.GetUrl(AirlyApiClientFunction.GetInstallations, query);
-            
+            Console.WriteLine("XXX_url=" + url);
             var response = await GetHttpResponseAsync<IEnumerable<ApiInstallationResponse>>(url);
             return response;
         }

@@ -1,6 +1,8 @@
 using System;
 using AirMonitor.Client.Airly;
 using AirMonitor.Profile;
+using AirMonitor.Service.Location;
+using AirMonitor.Service.Measurements;
 using Autofac;
 
 namespace AirMonitor.Infrastructure
@@ -22,8 +24,15 @@ namespace AirMonitor.Infrastructure
 
         public void InitializeWithAppProfile(IAppProfile appProfile)
         {
+            // Configurations
             _builder.Register(component => appProfile).As<IAppProfile>().SingleInstance();
+
+            // Clients
             _builder.Register(component => CreateAirlyClient(appProfile)).As<IAirlyClient>();
+
+            // Services
+            _builder.RegisterType<LocationService>().As<ILocationService>();
+            _builder.RegisterType<MeasurementsService>().As<IMeasurementsService>();
 
             _container = _builder.Build();
         }

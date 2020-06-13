@@ -1,7 +1,9 @@
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using AirMonitor.Client.Airly;
+using AirMonitor.Client.Airly.Response;
+using AirMonitor.Service.Location;
+using AirMonitor.Service.Measurements;
 using AirMonitor.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -11,15 +13,19 @@ namespace AirMonitor.ViewModels
     public class HomeViewModel : AbstractViewModel
     {
         private readonly INavigation _navigation;
-        private readonly IAirlyClient _airlyClient;
+        private readonly ILocationService _locationService;
+        private readonly IMeasurementsService _measurementsService;
+        
         private bool _isBusy;
-        private bool _isLocked;
-        private Location _location;
 
-        public HomeViewModel(INavigation navigation, IAirlyClient airlyClient)
+        private Location _location;
+        private List<ApiMeasurementResponse> _items;
+
+        public HomeViewModel(INavigation navigation, ILocationService locationService, IMeasurementsService measurementsService)
         {
             _navigation = navigation;
-            _airlyClient = airlyClient;
+            _locationService = locationService;
+            _measurementsService = measurementsService;
             
             Initialize();
         }
@@ -35,43 +41,22 @@ namespace AirMonitor.ViewModels
             get => _location;
             set => SetProperty(ref _location, value);
         }
+        
+        public List<ApiMeasurementResponse> Items
+        {
+            get => _items;
+            set => SetProperty(ref _items, value);
+        }
 
         private async Task Initialize()
         {
             IsBusy = true;
 
-            var location = await GetLocation();
+            Location = await _locationService.GetLocation();
+            Items = await _measurementsService.GetMeasurements(Location, 3);
 
             IsBusy = false;
         }
-        
-        private async Task<Location> GetLocation()
-        {
-            try
-            {
-                var location = await Geolocation.GetLastKnownLocationAsync();
-
-                if (location == null)
-                {
-                    var request = new GeolocationRequest(GeolocationAccuracy.Medium);
-                    location = await Geolocation.GetLocationAsync(request);
-                }
-
-                if (location != null)
-                {
-                    Location = location;
-                }
-
-                return location;
-            }
-            // TODO handle no location -- ErrorPage
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex);
-            }
-            return null;
-        }
-        
 
         private ICommand _goToDetailsCommand;
         public ICommand GoToDetailsCommand =>
