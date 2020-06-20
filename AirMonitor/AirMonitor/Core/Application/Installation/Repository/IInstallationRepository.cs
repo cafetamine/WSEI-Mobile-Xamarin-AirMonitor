@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AirMonitor.Core.Application.Installation
+namespace AirMonitor.Core.Application.Installation.Repository
 {
     public interface IInstallationRepository
     {

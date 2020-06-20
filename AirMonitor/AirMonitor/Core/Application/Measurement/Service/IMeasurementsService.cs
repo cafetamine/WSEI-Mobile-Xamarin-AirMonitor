@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AirMonitor.Core.Domain.Installation;
 
-namespace AirMonitor.Core.Application.Measurement
+namespace AirMonitor.Core.Application.Measurement.Service
 {
     public interface IMeasurementsService
     {

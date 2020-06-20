@@ -1,4 +1,5 @@
 using AirMonitor.Core.Application.Installation;
+using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Core.Domain.Installation;
 using AirMonitor.Persistence.Entity.Installation;
 using AirMonitor.Persistence.Utility;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AirMonitor.Core.Application.Installation;
+using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Persistence.Entity.Installation;
 using AirMonitor.Persistence.Utility;
 

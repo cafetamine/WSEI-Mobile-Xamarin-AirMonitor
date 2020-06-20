@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AirMonitor.Client.Airly;
 using AirMonitor.Core.Application.Measurement;
+using AirMonitor.Core.Application.Measurement.Service;
 using AirMonitor.Core.Domain.Installation;
 
 namespace AirMonitor.Infrastructure.Measurement
