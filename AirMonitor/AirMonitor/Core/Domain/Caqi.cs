@@ -1,4 +1,4 @@
-namespace AirMonitor.Model.Domain
+namespace AirMonitor.Core.Domain
 {
     public class Caqi
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AirMonitor.Model.Domain.Measurement
+namespace AirMonitor.Core.Domain.Measurement
 {
     public class Measurement
     {

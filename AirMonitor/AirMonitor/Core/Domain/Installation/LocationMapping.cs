@@ -1,11 +1,11 @@
-namespace AirMonitor.Model.Domain.Installation
+namespace AirMonitor.Core.Domain.Installation
 {
-    public class Location
+    public class LocationMapping
     {
         public double Latitude { get; }
         public double Longitude { get; }
 
-        public Location(double latitude, double longitude)
+        public LocationMapping(double latitude, double longitude)
         {
             Latitude = latitude;
             Longitude = longitude;

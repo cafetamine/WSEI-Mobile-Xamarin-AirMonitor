@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using AirMonitor.Client.Airly.Api.Installation;
 using AirMonitor.Client.Airly.Api.Measurement;
 using AirMonitor.Client.Util;
+using AirMonitor.Core.Domain.Installation;
 using AirMonitor.Profile.Client;
 using Newtonsoft.Json;
-using Xamarin.Essentials;
 
 namespace AirMonitor.Client.Airly.Client
 {
@@ -26,7 +26,7 @@ namespace AirMonitor.Client.Airly.Client
             _httpClient = httpClient; 
         }
 
-        public async Task<IEnumerable<ApiInstallation>> GetInstallations(Location location, double maxDistanceInKm = 3, int maxResults = -1)
+        public async Task<IEnumerable<ApiInstallation>> GetInstallations(LocationMapping location, double maxDistanceInKm = 1, int maxResults = -1)
         {
             if (location == null)
             {
@@ -46,22 +46,15 @@ namespace AirMonitor.Client.Airly.Client
             return response;
         }
 
-        public async Task<ApiMeasurement> GetMeasurementForInstallation(ApiInstallation installation)
+        public async Task<ApiMeasurement> GetMeasurementForInstallation(int installationId)
         {
-            if (installation == null)
-            {
-                System.Diagnostics.Debug.WriteLine("Installation is null.");
-                return null;
-            }
-
             var query = HttpUrlBuilder.GetQuery(new Dictionary<string, object>
             {
-                { "installationId", installation.Id }
+                { "installationId", installationId }
             });
             var url = _options.GetUrl(AirlyApiClientFunction.GetMeasurements, query);
 
             var response = await GetHttpResponseAsync<ApiMeasurement>(url);
-            
             return response;
         }
 
@@ -82,6 +75,7 @@ namespace AirMonitor.Client.Airly.Client
                     // TODO handle 301 and 404
                     case 200:
                         var content = await response.Content.ReadAsStringAsync();
+                        System.Diagnostics.Debug.WriteLine(content);
                         var result = JsonConvert.DeserializeObject<T>(content);
                         return result;
                     case 429: // too many requests

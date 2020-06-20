@@ -1,18 +1,23 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using AirMonitor.Client.Airly.Api.Installation;
 using AirMonitor.Client.Airly.Api.Measurement;
-using AirMonitor.Model.Domain.Installation;
-using AirMonitor.Model.Domain.Measurement;
+using AirMonitor.Core.Domain.Installation;
+using AirMonitor.Core.Domain.Measurement;
 
-namespace AirMonitor.Service.Measurements
+// TODO should not be here, client should not be aware of core
+namespace AirMonitor.Client.Airly
 {
     public static class AirlyApiAdapter
     {
         public static Installation FromApi(ApiInstallation installation)
             => AirlyApiInstallationAdapter.FromApi(installation);
+        
+        public static IList<Installation> FromApi(IEnumerable<ApiInstallation> installations)
+            => installations.Select(AirlyApiInstallationAdapter.FromApi).ToList();
 
-        public static Measurement FromApi(ApiMeasurement measurement, ApiInstallation installation)
+        public static Measurement FromApi(ApiMeasurement measurement, Installation installation)
             => AirlyApiMeasurementAdapter.FromApi(measurement, installation);
 
         private static class AirlyApiInstallationAdapter
@@ -27,8 +32,8 @@ namespace AirMonitor.Service.Measurements
             
             private static class AirlyApiLocationAdapter
             {
-                internal static Model.Domain.Installation.Location FromApi(ApiLocation location)
-                    => new Model.Domain.Installation.Location(location.Latitude, location.Longitude);
+                internal static LocationMapping FromApi(ApiLocation location)
+                    => new LocationMapping(location.Latitude, location.Longitude);
             }
         
             private static class AirlyApiAddressAdapter
@@ -56,12 +61,12 @@ namespace AirMonitor.Service.Measurements
 
         private static class AirlyApiMeasurementAdapter
         {
-            internal static Measurement FromApi(ApiMeasurement measurement, ApiInstallation installation)
+            internal static Measurement FromApi(ApiMeasurement measurement, Installation installation)
                 => new Measurement(CalculateCurrentDisplayValue(measurement),
                                    AirlyApiMeasurementItemAdapter.FromApi(measurement.Current),
                                    measurement.History.Select(AirlyApiMeasurementItemAdapter.FromApi).ToList(),
                                    measurement.Forecast.Select(AirlyApiMeasurementItemAdapter.FromApi).ToList(),
-                                   AirlyApiAdapter.FromApi(installation));
+                                   installation);
 
             private static int CalculateCurrentDisplayValue(ApiMeasurement measurement)
                 => (int) Math.Round(measurement.Current?.Indexes?.FirstOrDefault()?.Value ?? 0);

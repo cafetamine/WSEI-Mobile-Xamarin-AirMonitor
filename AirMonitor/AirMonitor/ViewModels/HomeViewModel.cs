@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using AirMonitor.Model.Domain.Measurement;
-using AirMonitor.Service.Location;
-using AirMonitor.Service.Measurements;
+using AirMonitor.Core.Application.Location;
+using AirMonitor.Core.Application.Measurement;
+using AirMonitor.Core.Domain.Installation;
+using AirMonitor.Core.Domain.Measurement;
 using AirMonitor.Views;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace AirMonitor.ViewModels
@@ -18,7 +18,7 @@ namespace AirMonitor.ViewModels
         
         private bool _isBusy;
 
-        private Location _location;
+        private LocationMapping _location;
         private List<Measurement> _items;
 
         public HomeViewModel(INavigation navigation, ILocationService locationService, IMeasurementsService measurementsService)
@@ -36,7 +36,7 @@ namespace AirMonitor.ViewModels
             set => SetProperty(ref _isBusy, value);
         }
 
-        public Location Location
+        public LocationMapping Location
         {
             get => _location;
             set => SetProperty(ref _location, value);
@@ -59,9 +59,11 @@ namespace AirMonitor.ViewModels
         }
 
         private ICommand _goToDetailsCommand;
-        public ICommand GoToDetailsCommand =>
-            _goToDetailsCommand ?? (_goToDetailsCommand = new Command(OnGoToDetails));
-        
-        private void OnGoToDetails() => _navigation.PushAsync(new DetailsPage());
+        public ICommand GoToDetailsCommand => _goToDetailsCommand ?? (_goToDetailsCommand = new Command<Measurement>(OnGoToDetails));
+
+        private void OnGoToDetails(Measurement item)
+        {
+            _navigation.PushAsync(new DetailsPage(item));
+        }
     }
 }

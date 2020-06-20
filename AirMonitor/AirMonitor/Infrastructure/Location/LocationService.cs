@@ -1,12 +1,14 @@
 using System;
 using System.Threading.Tasks;
+using AirMonitor.Core.Application.Location;
+using AirMonitor.Core.Domain.Installation;
 using Xamarin.Essentials;
 
-namespace AirMonitor.Service.Location
+namespace AirMonitor.Infrastructure.Location
 {
     public class LocationService : ILocationService
     {
-        public async Task<Xamarin.Essentials.Location> GetLocation()
+        public async Task<LocationMapping> GetLocation()
         {
             try
             {
@@ -20,8 +22,10 @@ namespace AirMonitor.Service.Location
                 if (location != null)
                 {
                     System.Diagnostics.Debug.WriteLine($"Location(latitude={location.Latitude}, longitude={location.Longitude})");
+                    return new LocationMapping(location.Latitude, location.Longitude); 
                 }
-                return location;
+
+                return null;
             }
             // TODO handle no location -- ErrorPage
             catch (Exception ex)

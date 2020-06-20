@@ -1,4 +1,4 @@
-namespace AirMonitor.Model.Domain.Installation
+namespace AirMonitor.Core.Domain.Installation
 {
     public struct Address
     {
@@ -23,5 +23,7 @@ namespace AirMonitor.Model.Domain.Installation
             DisplayAddress1 = displayAddress1;
             DisplayAddress2 = displayAddress2;
         }
+        
+        public string Description => $"{Street} {Number}, {City}";
     }
 }

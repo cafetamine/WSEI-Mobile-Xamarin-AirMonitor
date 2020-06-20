@@ -12,12 +12,6 @@
         </x:Arguments>
     </NavigationPage>
     
-    <NavigationPage Title="Details" NavigationPage.HasNavigationBar="False" IconImageSource="icon_info">
-        <x:Arguments>
-            <views:DetailsPage/>
-        </x:Arguments>
-    </NavigationPage>
-    
     <NavigationPage Title="Settings" NavigationPage.HasNavigationBar="False" IconImageSource="icon_settings">
         <x:Arguments>
             <views:SettingsPage/>

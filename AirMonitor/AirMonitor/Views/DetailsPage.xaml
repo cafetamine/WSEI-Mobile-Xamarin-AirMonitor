@@ -6,9 +6,9 @@
              mc:Ignorable="d"
              x:Class="AirMonitor.Views.DetailsPage"
              xmlns:controls="clr-namespace:AirMonitor.Views.Controls"
-             BackgroundColor="#f9f9f9"
              xmlns:viewModels="clr-namespace:AirMonitor.ViewModels"
              xmlns:converters="clr-namespace:AirMonitor.Util.Converter"
+             Title="Details Page"
              Style="{StaticResource ContentPageStyle}">
     
     <ContentPage.BindingContext>
@@ -17,9 +17,7 @@
     
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:HumidityConverter x:Key="HumidityConverter"/>
             <converters:PercentConverter x:Key="PercentConverter"/>
-            <converters:PressureConverter x:Key="PressureConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -30,7 +28,7 @@
                     <Label Style="{StaticResource CentralTexFormattingStyle}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{Binding Caqi.Value}"
+                                <Span Text="{Binding CaqiValue}"
                                       Style="{StaticResource MainSpanStyle}"/>
                                 
                                 <Span Text="{x:Static x:Environment.NewLine}"/>
@@ -42,10 +40,10 @@
                     </Label>
                 </Frame>
 
-                <Label Text="{Binding Caqi.Title}"
+                <Label Text="{Binding CaqiTitle}"
                        Style="{StaticResource MainLabelStyle}"/>
 
-                <Label Text="{Binding Caqi.Description}"
+                <Label Text="{Binding CaqiDescription}"
                        Style="{StaticResource ComplementaryLabelStyle}"/>
 
                 <BoxView Style="{StaticResource HorizontalSeparatorStyle}"/>
@@ -62,13 +60,13 @@
                             <Label>
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Pm25.Value}"
+                                        <Span Text="{Binding Pm25Value}"
                                               Style="{StaticResource CommonLabelStyle}"/>
                                         
-                                        <Span Text=" mg/m3 "
+                                        <Span Text=" µg/m³ "
                                               Style="{StaticResource CommonComplementaryLabelStyle}"/>
                                         
-                                        <Span Text="{Binding Pm25.Percent, Converter={StaticResource PercentConverter}}"
+                                        <Span Text="{Binding Pm25Percent, StringFormat='({0}%)'}"
                                               Style="{StaticResource CommonLabelStyle}"/>
                                     </FormattedString>
                                 </Label.FormattedText>
@@ -87,13 +85,13 @@
                             <Label>
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Pm10.Value}"
+                                        <Span Text="{Binding Pm10Value}"
                                               Style="{StaticResource CommonLabelStyle}"/>
                                         
-                                        <Span Text=" mg/m3 "
+                                        <Span Text=" µg/m³ "
                                               Style="{StaticResource CommonComplementaryLabelStyle}"/>
                                         
-                                        <Span Text="{Binding Pm10.Percent, Converter={StaticResource PercentConverter}}"
+                                        <Span Text="{Binding Pm10Percent, StringFormat='({0}%)'}"
                                               Style="{StaticResource CommonLabelStyle}"/>
                                     </FormattedString>
                                 </Label.FormattedText>
@@ -107,10 +105,10 @@
                 <controls:ContentWithHeader Title="Wilgotność">
                     <controls:ContentWithHeader.ControlContent>
                         <StackLayout>
-                            <Label Text="{Binding Air.Humidity, Converter={StaticResource HumidityConverter}}"
+                            <Label Text="{Binding HumidityPercent, StringFormat='{0}%'}"
                                    Style="{StaticResource CommonLabelStyle}"/>
                             
-                            <Slider Value="{Binding Air.Humidity}"
+                            <Slider Value="{Binding HumidityPercent, Converter={StaticResource PercentConverter}, Mode=OneWay}"
                                     Style="{StaticResource SliderStyle}"/>
                         </StackLayout>
                     </controls:ContentWithHeader.ControlContent>
@@ -121,12 +119,12 @@
                 <controls:ContentWithHeader Title="Ciśnienie">
                     <controls:ContentWithHeader.ControlContent>
                         <StackLayout>
-                            <Label Text="{Binding Air.Pressure, Converter={StaticResource PressureConverter}}"
+                            <Label Text="{Binding PressureValue, StringFormat='{0} hPa'}"
                                    Style="{StaticResource CommonLabelStyle}"/>
 
                             <Slider Maximum="1100"
                                     Minimum="900"
-                                    Value="{Binding Air.Pressure}"
+                                    Value="{Binding PressureValue}"
                                     Style="{StaticResource SliderStyle}"/>
                         </StackLayout>
                     </controls:ContentWithHeader.ControlContent>
@@ -138,5 +136,4 @@
                          Clicked="Help_Clicked"/>
         </Grid>
     </ScrollView>
-
 </ContentPage>

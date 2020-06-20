@@ -1,9 +1,9 @@
-using AirMonitor.Service.Location;
-using AirMonitor.Service.Measurements;
+using AirMonitor.Core.Application.Location;
+using AirMonitor.Core.Application.Measurement;
 using AirMonitor.ViewModels;
 using Xamarin.Forms;
 
-namespace AirMonitor.Infrastructure
+namespace AirMonitor.Infrastructure.DI
 {
     // TODO refactor <T> MakeFromType(<T>)
     public class ViewModelFactory
