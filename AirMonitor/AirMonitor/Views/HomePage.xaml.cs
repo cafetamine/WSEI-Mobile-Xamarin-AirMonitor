@@ -1,5 +1,4 @@
-using System;
-using AirMonitor.Infrastructure;
+using AirMonitor.Core.Domain.Measurement;
 using AirMonitor.Infrastructure.DI;
 using AirMonitor.ViewModels;
 using Xamarin.Forms;
@@ -10,7 +9,7 @@ namespace AirMonitor.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
-        private HomeViewModel _viewModel => BindingContext as HomeViewModel;
+        private HomeViewModel ViewModel => BindingContext as HomeViewModel;
 
         public HomePage()
         {
@@ -19,9 +18,9 @@ namespace AirMonitor.Views
             BindingContext = ViewModelFactory.MakeHomeViewModel(Navigation);
         }
         
-        private async void OnNavigationButtonTapped(object sender, EventArgs e)  
+        private void ListViewItemTapped(object sender, ItemTappedEventArgs e)
         {
-            await Navigation.PushAsync(new DetailsPage());
+            ViewModel.GoToDetailsCommand.Execute(e.Item as Measurement);
         }
     }
 }

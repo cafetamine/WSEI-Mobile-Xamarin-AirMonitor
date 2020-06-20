@@ -1,5 +1,7 @@
 using System;
 using AirMonitor.Client.Airly;
+using AirMonitor.Client.Airly.Client;
+using AirMonitor.Client.Airly.Mock;
 using AirMonitor.Core.Application.Location;
 using AirMonitor.Core.Application.Measurement;
 using AirMonitor.Infrastructure.Location;
@@ -30,7 +32,8 @@ namespace AirMonitor.Infrastructure.DI
             _builder.Register(component => appProfile).As<IAppProfile>().SingleInstance();
 
             // Clients
-            _builder.Register(component => CreateAirlyClient(appProfile)).As<IAirlyClient>();
+//            _builder.Register(component => CreateAirlyClient(appProfile)).As<IAirlyClient>();
+            _builder.RegisterType<AirlyMockedClient>().As<IAirlyClient>();
 
             // Services
             _builder.RegisterType<LocationService>().As<ILocationService>();

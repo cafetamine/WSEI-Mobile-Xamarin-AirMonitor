@@ -26,7 +26,7 @@ namespace AirMonitor.Client.Airly.Client
             _httpClient = httpClient; 
         }
 
-        public async Task<IEnumerable<ApiInstallation>> GetInstallations(LocationMapping location, double maxDistanceInKm = 3, int maxResults = -1)
+        public async Task<IEnumerable<ApiInstallation>> GetInstallations(LocationMapping location, double maxDistanceInKm = 1, int maxResults = -1)
         {
             if (location == null)
             {
@@ -55,7 +55,6 @@ namespace AirMonitor.Client.Airly.Client
             var url = _options.GetUrl(AirlyApiClientFunction.GetMeasurements, query);
 
             var response = await GetHttpResponseAsync<ApiMeasurement>(url);
-            
             return response;
         }
 
@@ -76,6 +75,7 @@ namespace AirMonitor.Client.Airly.Client
                     // TODO handle 301 and 404
                     case 200:
                         var content = await response.Content.ReadAsStringAsync();
+                        System.Diagnostics.Debug.WriteLine(content);
                         var result = JsonConvert.DeserializeObject<T>(content);
                         return result;
                     case 429: // too many requests
