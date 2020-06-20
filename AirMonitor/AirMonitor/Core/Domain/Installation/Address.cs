@@ -23,5 +23,7 @@ namespace AirMonitor.Core.Domain.Installation
             DisplayAddress1 = displayAddress1;
             DisplayAddress2 = displayAddress2;
         }
+        
+        public string Description => $"{Street} {Number}, {City}";
     }
 }
