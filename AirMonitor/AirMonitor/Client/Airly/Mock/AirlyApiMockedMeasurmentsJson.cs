@@ -31,7 +31,7 @@ namespace AirMonitor.Client.Airly.Mock
           },
           {
              ""name"":""HUMIDITY"",
-             ""value"":95.5
+             ""value"":70.4
           },
           {
              ""name"":""TEMPERATURE"",

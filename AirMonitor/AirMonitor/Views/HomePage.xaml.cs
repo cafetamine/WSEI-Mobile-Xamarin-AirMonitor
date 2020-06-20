@@ -17,7 +17,7 @@ namespace AirMonitor.Views
 
             BindingContext = ViewModelFactory.MakeHomeViewModel(Navigation);
         }
-        
+
         private void ListViewItemTapped(object sender, ItemTappedEventArgs e)
         {
             ViewModel.GoToDetailsCommand.Execute(e.Item as Measurement);

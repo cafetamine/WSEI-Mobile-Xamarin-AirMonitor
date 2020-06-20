@@ -59,9 +59,11 @@ namespace AirMonitor.ViewModels
         }
 
         private ICommand _goToDetailsCommand;
-        public ICommand GoToDetailsCommand =>
-            _goToDetailsCommand ?? (_goToDetailsCommand = new Command(OnGoToDetails));
-        
-        private void OnGoToDetails() => _navigation.PushAsync(new DetailsPage());
+        public ICommand GoToDetailsCommand => _goToDetailsCommand ?? (_goToDetailsCommand = new Command<Measurement>(OnGoToDetails));
+
+        private void OnGoToDetails(Measurement item)
+        {
+            _navigation.PushAsync(new DetailsPage(item));
+        }
     }
 }
