@@ -1,9 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using AirMonitor.Model.Domain.Installation;
+using AirMonitor.Core.Application.Location;
+using AirMonitor.Core.Domain.Installation;
 using Xamarin.Essentials;
 
-namespace AirMonitor.Service.Location
+namespace AirMonitor.Infrastructure.Location
 {
     public class LocationService : ILocationService
     {

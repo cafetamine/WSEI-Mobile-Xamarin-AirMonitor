@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using AirMonitor.Model.Domain.Installation;
-using AirMonitor.Model.Domain.Measurement;
-using AirMonitor.Service.Location;
-using AirMonitor.Service.Measurements;
+using AirMonitor.Core.Application.Location;
+using AirMonitor.Core.Application.Measurement;
+using AirMonitor.Core.Domain.Installation;
+using AirMonitor.Core.Domain.Measurement;
 using AirMonitor.Views;
 using Xamarin.Forms;
 

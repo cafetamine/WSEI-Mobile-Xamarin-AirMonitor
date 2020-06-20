@@ -1,11 +1,13 @@
 using System;
 using AirMonitor.Client.Airly;
+using AirMonitor.Core.Application.Location;
+using AirMonitor.Core.Application.Measurement;
+using AirMonitor.Infrastructure.Location;
+using AirMonitor.Infrastructure.Measurement;
 using AirMonitor.Profile;
-using AirMonitor.Service.Location;
-using AirMonitor.Service.Measurements;
 using Autofac;
 
-namespace AirMonitor.Infrastructure
+namespace AirMonitor.Infrastructure.DI
 {
     public class AppDIContainer
     {

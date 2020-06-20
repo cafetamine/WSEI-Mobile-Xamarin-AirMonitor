@@ -1,4 +1,4 @@
-using AirMonitor.Model.Domain;
+using AirMonitor.Core.Domain;
 
 namespace AirMonitor.ViewModels
 {

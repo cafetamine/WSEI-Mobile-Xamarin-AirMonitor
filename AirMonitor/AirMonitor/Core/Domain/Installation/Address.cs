@@ -1,4 +1,4 @@
-namespace AirMonitor.Model.Domain.Installation
+namespace AirMonitor.Core.Domain.Installation
 {
     public struct Address
     {

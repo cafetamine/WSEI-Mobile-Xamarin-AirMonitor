@@ -1,4 +1,5 @@
 ﻿using AirMonitor.Infrastructure;
+using AirMonitor.Infrastructure.DI;
 using AirMonitor.Profile;
 using AirMonitor.Views;
 using Xamarin.Forms;

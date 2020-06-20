@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using AirMonitor.Model.Domain.Installation;
+using AirMonitor.Core.Domain.Installation;
 
-namespace AirMonitor.Service.Location
+namespace AirMonitor.Core.Application.Location
 {
     public interface ILocationService
     {

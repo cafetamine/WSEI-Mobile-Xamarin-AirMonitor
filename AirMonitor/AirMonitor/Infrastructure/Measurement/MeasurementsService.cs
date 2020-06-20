@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AirMonitor.Client.Airly;
-using AirMonitor.Model.Domain.Installation;
-using AirMonitor.Model.Domain.Measurement;
+using AirMonitor.Core.Application.Measurement;
+using AirMonitor.Core.Domain.Installation;
 
-namespace AirMonitor.Service.Measurements
+namespace AirMonitor.Infrastructure.Measurement
 {
     public class MeasurementsService : IMeasurementsService
     {
@@ -15,11 +15,11 @@ namespace AirMonitor.Service.Measurements
             _client = client;
         }
 
-        public async Task<List<Measurement>> GetMeasurements(LocationMapping location, int maxResults = 3)
+        public async Task<List<Core.Domain.Measurement.Measurement>> GetMeasurements(LocationMapping location, int maxResults = 3)
         {
             var apiInstallations = await _client.GetInstallations(location, maxResults);
             var installations = AirlyApiAdapter.FromApi(apiInstallations);
-            var measurements = new List<Measurement>();
+            var measurements = new List<Core.Domain.Measurement.Measurement>();
 
             foreach (var installation in installations)
             {
@@ -30,7 +30,7 @@ namespace AirMonitor.Service.Measurements
                 }
             }
 
-            return new List<Measurement>(measurements);
+            return new List<Core.Domain.Measurement.Measurement>(measurements);
         }
     }
 }

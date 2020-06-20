@@ -1,4 +1,4 @@
-namespace AirMonitor.Model.Domain.Measurement
+namespace AirMonitor.Core.Domain.Measurement
 {
     public class AirQualityIndex
     {

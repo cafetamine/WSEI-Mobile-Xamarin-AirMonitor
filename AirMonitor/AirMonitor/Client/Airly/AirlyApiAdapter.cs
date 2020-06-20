@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using AirMonitor.Client.Airly.Api.Installation;
 using AirMonitor.Client.Airly.Api.Measurement;
-using AirMonitor.Model.Domain.Installation;
-using AirMonitor.Model.Domain.Measurement;
+using AirMonitor.Core.Domain.Installation;
+using AirMonitor.Core.Domain.Measurement;
 
-namespace AirMonitor.Service.Measurements
+// TODO should not be here, client should not be aware of core
+namespace AirMonitor.Client.Airly
 {
     public static class AirlyApiAdapter
     {
