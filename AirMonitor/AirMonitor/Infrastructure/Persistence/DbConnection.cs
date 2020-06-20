@@ -1,4 +1,5 @@
 using System.IO;
+using AirMonitor.Persistence.Utility;
 using SQLite;
 
 namespace AirMonitor.Infrastructure.Persistence

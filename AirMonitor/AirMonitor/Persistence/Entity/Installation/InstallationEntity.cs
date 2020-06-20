@@ -1,4 +1,5 @@
 using System;
+using AirMonitor.Core.Domain.Installation;
 using SQLite;
 
 namespace AirMonitor.Persistence.Entity.Installation
@@ -33,17 +34,17 @@ namespace AirMonitor.Persistence.Entity.Installation
             IsAirlyInstallation = isAirlyInstallation;
         }
 
-        public Core.Domain.Installation.Installation toDomain(LocationEntity location,
-                                                              AddressEntity address,
-                                                              SponsorEntity sponsor)
+        public Core.Domain.Installation.Installation toDomain(LocationMapping location,
+                                                              Address address,
+                                                              Sponsor sponsor)
             => new Core.Domain.Installation.Installation(Id,
-                                                         location.ToDomain(),
-                                                         address.ToDomain(),
+                                                         location,
+                                                         address,
                                                          Elevation,
-                                                         sponsor.ToDomain(),
+                                                         sponsor,
                                                          IsAirlyInstallation);
 
-        private static InstallationEntity FromDomain(Core.Domain.Installation.Installation installation)
+        public static InstallationEntity FromDomain(Core.Domain.Installation.Installation installation)
             => new InstallationEntity(installation.Id,
                                       installation.Location.Id ?? throw new ArgumentException("Location reference set to null"),
                                       installation.Address.Id ?? throw new ArgumentException("Address reference set to null"),

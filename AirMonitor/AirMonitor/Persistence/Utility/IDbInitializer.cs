@@ -1,4 +1,4 @@
-namespace AirMonitor.Infrastructure.Persistence
+namespace AirMonitor.Persistence.Utility
 {
     public interface IDbInitializer
     {

@@ -1,5 +1,6 @@
 using AirMonitor.Persistence.Entity.Installation;
 using AirMonitor.Persistence.Entity.Measurement;
+using AirMonitor.Persistence.Utility;
 
 namespace AirMonitor.Infrastructure.Persistence
 {
