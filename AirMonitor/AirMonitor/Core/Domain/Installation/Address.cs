@@ -2,6 +2,7 @@ namespace AirMonitor.Core.Domain.Installation
 {
     public struct Address
     {
+        public long? Id { get; }
         public string Country { get; }
         public string City { get; }
         public string Street { get; }
@@ -9,7 +10,8 @@ namespace AirMonitor.Core.Domain.Installation
         public string DisplayAddress1 { get; }
         public string DisplayAddress2 { get; }
 
-        public Address(string country,
+        public Address(long? id,
+                       string country,
                        string city,
                        string street,
                        string number,
@@ -25,5 +27,13 @@ namespace AirMonitor.Core.Domain.Installation
         }
         
         public string Description => $"{Street} {Number}, {City}";
+
+        public static Address Create(string country,
+                                     string city,
+                                     string street,
+                                     string number,
+                                     string displayAddress1,
+                                     string displayAddress2)
+            => new Address(null, country, city, street, number, displayAddress1, displayAddress2);
     }
 }

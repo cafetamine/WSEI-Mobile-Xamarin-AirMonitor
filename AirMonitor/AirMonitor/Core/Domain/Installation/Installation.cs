@@ -23,5 +23,13 @@ namespace AirMonitor.Core.Domain.Installation
             Sponsor = sponsor;
             IsAirlyInstallation = isAirlyInstallation;
         }
+        
+        public static Installation Create(int id,
+                                          LocationMapping location,
+                                          Address address,
+                                          double elevation,
+                                          Sponsor sponsor,
+                                          bool isAirlyInstallation)
+            => new Installation(id, location, address, elevation, sponsor, isAirlyInstallation);
     }
 }

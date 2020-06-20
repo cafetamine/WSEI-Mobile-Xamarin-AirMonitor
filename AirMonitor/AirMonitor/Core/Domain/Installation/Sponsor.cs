@@ -24,5 +24,13 @@ namespace AirMonitor.Core.Domain.Installation
             SponsorWebsiteUrl = sponsorWebsiteUrl;
             DisplayName = displayName;
         }
+        
+        public static Sponsor Create(long id,
+                                     string name,
+                                     string description,
+                                     string sponsorLogoUrl,
+                                     string sponsorWebsiteUrl,
+                                     string displayName)
+            => new Sponsor(id, name, description, sponsorLogoUrl, sponsorWebsiteUrl, displayName);
     }
 }

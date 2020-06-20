@@ -2,6 +2,7 @@ namespace AirMonitor.Core.Domain.Measurement
 {
     public class AirQualityIndex
     {
+        public long? Id { get; }
         public string Name { get; }
         public double? Value { get; }
         public string Level { get; }
@@ -9,13 +10,15 @@ namespace AirMonitor.Core.Domain.Measurement
         public string Advice { get; }
         public string Color { get; }
 
-        public AirQualityIndex(string name,
+        public AirQualityIndex(long? id,
+                               string name,
                                double? value,
                                string level,
                                string description,
                                string advice,
                                string color)
         {
+            Id = id;
             Name = name;
             Value = value;
             Level = level;
@@ -23,5 +26,13 @@ namespace AirMonitor.Core.Domain.Measurement
             Advice = advice;
             Color = color;
         }
+
+        public static AirQualityIndex Create(string name,
+                                             double? value,
+                                             string level,
+                                             string description,
+                                             string advice,
+                                             string color)
+            => new AirQualityIndex(null, name, value, level, description, advice, color);
     }
 }
