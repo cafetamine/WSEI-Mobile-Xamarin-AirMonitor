@@ -1,0 +1,11 @@
+{
+  "client": {
+    "airly": {
+      "isSecure": true,
+      "HostAddress": "airapi.airly.eu",
+      "ApiPrefix": null,
+      "ApiVersion": "v2",
+      "ApiKey": ""
+    }
+  }
+}

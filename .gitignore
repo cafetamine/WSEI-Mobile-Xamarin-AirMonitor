@@ -197,3 +197,7 @@ FakesAssemblies/
 # JetBrains
 
 **/.idea
+
+# Local files ignored in versioning
+
+**/AppProfileDev.json

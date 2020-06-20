@@ -1,14 +1,9 @@
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using AirMonitor.Model;
+using AirMonitor.Model.Domain;
 
 namespace AirMonitor.ViewModels
 {
-    public class DetailsViewModel : INotifyPropertyChanged
+    public class DetailsViewModel : AbstractViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        
         private Caqi _caqi;
         private Pm25 _pm25;
         private Pm10 _pm10;
@@ -44,23 +39,6 @@ namespace AirMonitor.ViewModels
             _pm25 = Pm25.Default();
             _pm10 = Pm10.Default();
             _air = Air.Default();
-        }
-
-        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        
-        private bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value))
-            {
-                return false;
-            }
-            field = value;
-            RaisePropertyChanged(propertyName);
-
-            return true;
         }
     }
 }
