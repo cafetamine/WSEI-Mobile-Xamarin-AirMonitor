@@ -1,5 +1,3 @@
-using AirMonitor.Client.Airly.Api.Installation;
-
 namespace AirMonitor.Model.Domain.Installation
 {
     public class Installation
@@ -11,12 +9,12 @@ namespace AirMonitor.Model.Domain.Installation
         public Sponsor Sponsor { get; }
         public bool IsAirlyInstallation { get; }
 
-        private Installation(int id,
-                             Location location,
-                             Address address,
-                             double elevation,
-                             Sponsor sponsor,
-                             bool isAirlyInstallation)
+        public Installation(int id,
+                            Location location,
+                            Address address,
+                            double elevation,
+                            Sponsor sponsor,
+                            bool isAirlyInstallation)
         {
             Id = id;
             Location = location;
@@ -25,13 +23,5 @@ namespace AirMonitor.Model.Domain.Installation
             Sponsor = sponsor;
             IsAirlyInstallation = isAirlyInstallation;
         }
-        
-        public static Installation FromApi(ApiInstallation installation)
-            => new Installation(installation.Id,
-                                Location.FromApi(installation.Location),
-                                Address.FromApi(installation.Address),
-                                installation.Elevation,
-                                Sponsor.FromApi(installation.Sponsor),
-                                installation.IsAirlyInstallation);
     }
 }

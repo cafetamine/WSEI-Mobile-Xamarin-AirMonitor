@@ -1,5 +1,3 @@
-using AirMonitor.Client.Airly.Api.Installation;
-
 namespace AirMonitor.Model.Domain.Measurement
 {
     public class MeasurementValue
@@ -7,13 +5,10 @@ namespace AirMonitor.Model.Domain.Measurement
         public string Name { get; }
         public double Value { get; }
 
-        private MeasurementValue(string name, double value)
+        public MeasurementValue(string name, double value)
         {
             Name = name;
             Value = value;
         }
-        
-        public static MeasurementValue FromApi(ApiMeasurementValue value)
-            => new MeasurementValue(value.Name, value.Value);
     }
 }

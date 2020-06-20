@@ -46,35 +46,23 @@ namespace AirMonitor.Client.Airly.Client
             return response;
         }
 
-        public async Task<IEnumerable<ApiMeasurement>> GetMeasurementsForInstallations(IEnumerable<ApiInstallation> installations)
+        public async Task<ApiMeasurement> GetMeasurementForInstallation(ApiInstallation installation)
         {
-            if (installations == null)
+            if (installation == null)
             {
-                System.Diagnostics.Debug.WriteLine("No installations data.");
+                System.Diagnostics.Debug.WriteLine("Installation is null.");
                 return null;
             }
 
-            var measurements = new List<ApiMeasurement>();
-
-            foreach (var installation in installations)
+            var query = HttpUrlBuilder.GetQuery(new Dictionary<string, object>
             {
-                var query = HttpUrlBuilder.GetQuery(new Dictionary<string, object>
-                {
-                    { "installationId", installation.Id }
-                });
-                var url = _options.GetUrl(AirlyApiClientFunction.GetMeasurements, query);
+                { "installationId", installation.Id }
+            });
+            var url = _options.GetUrl(AirlyApiClientFunction.GetMeasurements, query);
 
-                var response = await GetHttpResponseAsync<ApiMeasurement>(url);
-
-                if (response != null)
-                {
-                    response.Installation = installation;
-                    response.CurrentDisplayValue = (int)Math.Round(response.Current?.Indexes?.FirstOrDefault()?.Value ?? 0);
-                    measurements.Add(response);
-                }
-            }
-
-            return measurements;
+            var response = await GetHttpResponseAsync<ApiMeasurement>(url);
+            
+            return response;
         }
 
         private async Task<T> GetHttpResponseAsync<T>(string url)

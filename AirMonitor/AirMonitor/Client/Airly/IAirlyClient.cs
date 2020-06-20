@@ -10,6 +10,8 @@ namespace AirMonitor.Client.Airly
     {
         Task<IEnumerable<ApiInstallation>> GetInstallations(Location location, double maxDistanceInKm = 3, int maxResults = -1);
 
-        Task<IEnumerable<ApiMeasurement>> GetMeasurementsForInstallations(IEnumerable<ApiInstallation> installations);
+        Task<ApiMeasurement> GetMeasurementForInstallation(ApiInstallation installation);
+        
+//        Task<IEnumerable<ApiMeasurement>> GetMeasurementsForInstallations(IEnumerable<ApiInstallation> installations);
     }
 }

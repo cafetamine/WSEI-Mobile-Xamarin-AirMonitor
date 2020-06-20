@@ -1,5 +1,3 @@
-using AirMonitor.Client.Airly.Api.Measurement;
-
 namespace AirMonitor.Model.Domain.Measurement
 {
     public class AirQualityStandard
@@ -10,11 +8,11 @@ namespace AirMonitor.Model.Domain.Measurement
         public double Percent { get; }
         public string Averaging { get; }
 
-        private AirQualityStandard(string name,
-                                   string pollutant,
-                                   double limit,
-                                   double percent,
-                                   string averaging)
+        public AirQualityStandard(string name,
+                                  string pollutant,
+                                  double limit,
+                                  double percent,
+                                  string averaging)
         {
             Name = name;
             Pollutant = pollutant;
@@ -22,12 +20,5 @@ namespace AirMonitor.Model.Domain.Measurement
             Percent = percent;
             Averaging = averaging;
         }
-        
-        public static AirQualityStandard FromApi(ApiAirQualityStandard standard)
-            => new AirQualityStandard(standard.Name,
-                                      standard.Pollutant,
-                                      standard.Limit,
-                                      standard.Percent,
-                                      standard.Averaging);
     }
 }
