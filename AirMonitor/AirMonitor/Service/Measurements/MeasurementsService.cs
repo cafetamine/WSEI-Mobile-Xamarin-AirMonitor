@@ -17,12 +17,13 @@ namespace AirMonitor.Service.Measurements
 
         public async Task<List<Measurement>> GetMeasurements(LocationMapping location, int maxResults = 3)
         {
-            var installations = await _client.GetInstallations(location, maxResults);
+            var apiInstallations = await _client.GetInstallations(location, maxResults);
+            var installations = AirlyApiAdapter.FromApi(apiInstallations);
             var measurements = new List<Measurement>();
 
             foreach (var installation in installations)
             {
-                var measurement = await _client.GetMeasurementForInstallation(installation);
+                var measurement = await _client.GetMeasurementForInstallation(installation.Id);
                 if (measurement != null)
                 {
                     measurements.Add(AirlyApiAdapter.FromApi(measurement, installation));

@@ -46,17 +46,11 @@ namespace AirMonitor.Client.Airly.Client
             return response;
         }
 
-        public async Task<ApiMeasurement> GetMeasurementForInstallation(ApiInstallation installation)
+        public async Task<ApiMeasurement> GetMeasurementForInstallation(int installationId)
         {
-            if (installation == null)
-            {
-                System.Diagnostics.Debug.WriteLine("Installation is null.");
-                return null;
-            }
-
             var query = HttpUrlBuilder.GetQuery(new Dictionary<string, object>
             {
-                { "installationId", installation.Id }
+                { "installationId", installationId }
             });
             var url = _options.GetUrl(AirlyApiClientFunction.GetMeasurements, query);
 
