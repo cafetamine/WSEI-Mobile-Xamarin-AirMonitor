@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AirMonitor.Model.Domain.Installation;
 using AirMonitor.Model.Domain.Measurement;
 using AirMonitor.Service.Location;
 using AirMonitor.Service.Measurements;
 using AirMonitor.Views;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace AirMonitor.ViewModels
@@ -18,7 +18,7 @@ namespace AirMonitor.ViewModels
         
         private bool _isBusy;
 
-        private Location _location;
+        private LocationMapping _location;
         private List<Measurement> _items;
 
         public HomeViewModel(INavigation navigation, ILocationService locationService, IMeasurementsService measurementsService)
@@ -36,7 +36,7 @@ namespace AirMonitor.ViewModels
             set => SetProperty(ref _isBusy, value);
         }
 
-        public Location Location
+        public LocationMapping Location
         {
             get => _location;
             set => SetProperty(ref _location, value);

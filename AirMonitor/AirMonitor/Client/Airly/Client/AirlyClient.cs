@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using AirMonitor.Client.Airly.Api.Installation;
 using AirMonitor.Client.Airly.Api.Measurement;
 using AirMonitor.Client.Util;
+using AirMonitor.Model.Domain.Installation;
 using AirMonitor.Profile.Client;
 using Newtonsoft.Json;
-using Xamarin.Essentials;
 
 namespace AirMonitor.Client.Airly.Client
 {
@@ -26,7 +26,7 @@ namespace AirMonitor.Client.Airly.Client
             _httpClient = httpClient; 
         }
 
-        public async Task<IEnumerable<ApiInstallation>> GetInstallations(Location location, double maxDistanceInKm = 3, int maxResults = -1)
+        public async Task<IEnumerable<ApiInstallation>> GetInstallations(LocationMapping location, double maxDistanceInKm = 3, int maxResults = -1)
         {
             if (location == null)
             {

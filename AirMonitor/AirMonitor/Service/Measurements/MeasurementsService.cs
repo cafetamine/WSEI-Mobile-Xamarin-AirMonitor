@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AirMonitor.Client.Airly;
+using AirMonitor.Model.Domain.Installation;
 using AirMonitor.Model.Domain.Measurement;
 
 namespace AirMonitor.Service.Measurements
@@ -14,7 +15,7 @@ namespace AirMonitor.Service.Measurements
             _client = client;
         }
 
-        public async Task<List<Measurement>> GetMeasurements(Xamarin.Essentials.Location location, int maxResults = 3)
+        public async Task<List<Measurement>> GetMeasurements(LocationMapping location, int maxResults = 3)
         {
             var installations = await _client.GetInstallations(location, maxResults);
             var measurements = new List<Measurement>();

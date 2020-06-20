@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
+using AirMonitor.Model.Domain.Installation;
 
 namespace AirMonitor.Service.Location
 {
     public interface ILocationService
     {
-        Task<Xamarin.Essentials.Location> GetLocation();
+        Task<LocationMapping> GetLocation();
     }
 }

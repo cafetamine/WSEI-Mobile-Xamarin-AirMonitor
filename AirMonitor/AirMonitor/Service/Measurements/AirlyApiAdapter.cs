@@ -27,8 +27,8 @@ namespace AirMonitor.Service.Measurements
             
             private static class AirlyApiLocationAdapter
             {
-                internal static Model.Domain.Installation.Location FromApi(ApiLocation location)
-                    => new Model.Domain.Installation.Location(location.Latitude, location.Longitude);
+                internal static LocationMapping FromApi(ApiLocation location)
+                    => new LocationMapping(location.Latitude, location.Longitude);
             }
         
             private static class AirlyApiAddressAdapter

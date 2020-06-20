@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AirMonitor.Client.Airly.Api.Installation;
 using AirMonitor.Client.Airly.Api.Measurement;
-using Xamarin.Essentials;
+using AirMonitor.Model.Domain.Installation;
 
 namespace AirMonitor.Client.Airly
 {
     public interface IAirlyClient
     {
-        Task<IEnumerable<ApiInstallation>> GetInstallations(Location location, double maxDistanceInKm = 3, int maxResults = -1);
+        Task<IEnumerable<ApiInstallation>> GetInstallations(LocationMapping location, double maxDistanceInKm = 3, int maxResults = -1);
 
         Task<ApiMeasurement> GetMeasurementForInstallation(ApiInstallation installation);
         

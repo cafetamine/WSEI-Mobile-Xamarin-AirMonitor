@@ -3,14 +3,14 @@ namespace AirMonitor.Model.Domain.Installation
     public class Installation
     {
         public int Id { get; }
-        public Location Location { get; }
+        public LocationMapping Location { get; }
         public Address Address { get; }
         public double Elevation { get; }
         public Sponsor Sponsor { get; }
         public bool IsAirlyInstallation { get; }
 
         public Installation(int id,
-                            Location location,
+                            LocationMapping location,
                             Address address,
                             double elevation,
                             Sponsor sponsor,
