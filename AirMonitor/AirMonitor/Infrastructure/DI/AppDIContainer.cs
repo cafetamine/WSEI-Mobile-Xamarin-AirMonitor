@@ -1,10 +1,8 @@
 using System;
 using AirMonitor.Client.Airly;
 using AirMonitor.Client.Airly.Mock;
-using AirMonitor.Core.Application.Installation;
 using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Core.Application.Location;
-using AirMonitor.Core.Application.Measurement;
 using AirMonitor.Core.Application.Measurement.Service;
 using AirMonitor.Infrastructure.Location;
 using AirMonitor.Infrastructure.Measurement;
@@ -24,8 +22,6 @@ namespace AirMonitor.Infrastructure.DI
         private IContainer _container;
         private ContainerBuilder _builder;
 
-        private IAirlyClient _airlyClient;
-        
         private AppDIContainer()
         {
             _builder = new ContainerBuilder();
@@ -37,20 +33,13 @@ namespace AirMonitor.Infrastructure.DI
             _builder.Register(component => appProfile).As<IAppProfile>().SingleInstance();
             
             // Database
-            IDbConnection dbConnection = new DbConnection();
-            IDbInitializer dbInitializer = new DbInitializer(dbConnection);
-            _builder.Register(component => dbConnection).As<IDbConnection>().SingleInstance();
-            _builder.Register(component => dbInitializer).As<IDbInitializer>().SingleInstance();
+            _builder.RegisterType<DbConnection>().As<IDbConnection>().SingleInstance();
+            _builder.RegisterType<DbInitializer>().As<IDbInitializer>().SingleInstance();
             
-            // Repositories Installation
-            IAddressRepository addressRepository = new AddressRepository(dbConnection);
-            ILocationRepository locationRepository = new LocationRepository(dbConnection);
-            ISponsorRepository sponsorRepository = new SponsorRepository(dbConnection);
-            IInstallationRepository installationRepository = new InstallationRepository(dbConnection, addressRepository, locationRepository, sponsorRepository);
-            _builder.Register(component => addressRepository).As<IAddressRepository>().SingleInstance();
-            _builder.Register(component => locationRepository).As<ILocationRepository>().SingleInstance();
-            _builder.Register(component => sponsorRepository).As<ISponsorRepository>().SingleInstance();
-            _builder.Register(component => installationRepository).As<IInstallationRepository>().SingleInstance();
+            _builder.RegisterType<AddressRepository>().As<IAddressRepository>().SingleInstance();
+            _builder.RegisterType<LocationRepository>().As<ILocationRepository>().SingleInstance();
+            _builder.RegisterType<SponsorRepository>().As<ISponsorRepository>().SingleInstance();
+            _builder.RegisterType<InstallationRepository>().As<IInstallationRepository>().SingleInstance();
 
             // Clients
 //            _builder.Register(component => CreateAirlyClient(appProfile)).As<IAirlyClient>().SingleInstance();

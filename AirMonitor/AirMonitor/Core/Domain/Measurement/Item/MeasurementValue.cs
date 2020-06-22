@@ -1,4 +1,4 @@
-namespace AirMonitor.Core.Domain.Measurement
+namespace AirMonitor.Core.Domain.Measurement.Item
 {
     public class MeasurementValue
     {

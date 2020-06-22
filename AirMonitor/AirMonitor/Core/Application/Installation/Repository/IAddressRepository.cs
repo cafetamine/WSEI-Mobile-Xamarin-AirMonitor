@@ -6,7 +6,6 @@ namespace AirMonitor.Core.Application.Installation.Repository
     {
         Address FindById(long id);
 
-        // TODO returning id?
-        bool Save(Address address);
+        Address Save(Address address);
     }
 }

@@ -1,4 +1,3 @@
-using AirMonitor.Core.Application.Installation;
 using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Core.Domain.Installation;
 using AirMonitor.Persistence.Entity.Installation;
@@ -16,17 +15,15 @@ namespace AirMonitor.Persistence.Repository.Installation
         }
 
         public LocationMapping FindById(long id)
-        {
-            var location = _connection.Get.Get<LocationEntity>(id);
-            _connection.Get.Close();
-            return location?.ToDomain();
-        }
+            => _connection.Get.Get<LocationEntity>(id)?.ToDomain();
 
-        public bool Save(LocationMapping location)
+        public LocationMapping Save(LocationMapping location)
         {
-            var successFlag = _connection.Get.Insert(LocationEntity.FromDomain(location));
-            _connection.Get.Close();
-            return successFlag > 0;
+            if (_connection.Get.Insert(LocationEntity.FromDomain(location)) > 0)
+            {
+                return location.WithId(_connection.LastIndex);
+            }
+            return null;
         }
     }
 }

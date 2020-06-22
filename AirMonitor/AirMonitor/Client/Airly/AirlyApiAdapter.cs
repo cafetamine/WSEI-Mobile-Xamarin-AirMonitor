@@ -5,6 +5,7 @@ using AirMonitor.Client.Airly.Api.Installation;
 using AirMonitor.Client.Airly.Api.Measurement;
 using AirMonitor.Core.Domain.Installation;
 using AirMonitor.Core.Domain.Measurement;
+using AirMonitor.Core.Domain.Measurement.Item;
 
 // TODO should not be here, client should not be aware of core
 namespace AirMonitor.Client.Airly
@@ -14,7 +15,7 @@ namespace AirMonitor.Client.Airly
         public static Installation FromApi(ApiInstallation installation)
             => AirlyApiInstallationAdapter.FromApi(installation);
         
-        public static IList<Installation> FromApi(IEnumerable<ApiInstallation> installations)
+        public static List<Installation> FromApi(IEnumerable<ApiInstallation> installations)
             => installations.Select(AirlyApiInstallationAdapter.FromApi).ToList();
 
         public static Measurement FromApi(ApiMeasurement measurement, Installation installation)
@@ -24,11 +25,11 @@ namespace AirMonitor.Client.Airly
         {
             internal static Installation FromApi(ApiInstallation installation)
                 => Installation.Create(installation.Id,
+                                       installation.Elevation,
+                                       installation.IsAirlyInstallation,
                                        AirlyApiLocationAdapter.FromApi(installation.Location),
                                        AirlyApiAddressAdapter.FromApi(installation.Address),
-                                       installation.Elevation,
-                                       AirlyApiSponsorAdapter.FromApi(installation.Sponsor),
-                                       installation.IsAirlyInstallation);
+                                       AirlyApiSponsorAdapter.FromApi(installation.Sponsor));
             
             private static class AirlyApiLocationAdapter
             {
@@ -63,9 +64,9 @@ namespace AirMonitor.Client.Airly
         {
             internal static Measurement FromApi(ApiMeasurement measurement, Installation installation)
                 => Measurement.Create(CalculateCurrentDisplayValue(measurement),
-                                      AirlyApiMeasurementItemAdapter.FromApi(measurement.Current),
-                                       measurement.History.Select(AirlyApiMeasurementItemAdapter.FromApi).ToList(),
-                                       measurement.Forecast.Select(AirlyApiMeasurementItemAdapter.FromApi).ToList(),
+                                      AirlyApiMeasurementItemAdapter.FromApi(measurement.Current, MeasurementItemType.Current),
+                                       measurement.History.Select(history => AirlyApiMeasurementItemAdapter.FromApi(history, MeasurementItemType.History)).ToList(),
+                                       measurement.Forecast.Select(forecast => AirlyApiMeasurementItemAdapter.FromApi(forecast, MeasurementItemType.Forecast)).ToList(),
                                        installation);
 
             private static int CalculateCurrentDisplayValue(ApiMeasurement measurement)
@@ -73,8 +74,9 @@ namespace AirMonitor.Client.Airly
 
             private static class AirlyApiMeasurementItemAdapter
             {
-                internal static MeasurementItem FromApi(ApiMeasurementItem item)
-                    => MeasurementItem.Create(item.FromDateTime,
+                internal static MeasurementItem FromApi(ApiMeasurementItem item, MeasurementItemType type)
+                    => MeasurementItem.Create(type,
+                                              item.FromDateTime,
                                               item.TillDateTime,
                                               item.Values.Select(AirlyApiMeasurementValueAdapter.FromApi).ToList(),
                                               item.Indexes.Select(AirlyApiQualityIndexApiAdapter.FromApi).ToList(),

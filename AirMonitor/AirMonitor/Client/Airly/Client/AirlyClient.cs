@@ -46,7 +46,7 @@ namespace AirMonitor.Client.Airly.Client
             return response;
         }
 
-        public async Task<ApiMeasurement> GetMeasurementForInstallation(int installationId)
+        public async Task<ApiMeasurement> GetMeasurementForInstallation(long installationId)
         {
             var query = HttpUrlBuilder.GetQuery(new Dictionary<string, object>
             {

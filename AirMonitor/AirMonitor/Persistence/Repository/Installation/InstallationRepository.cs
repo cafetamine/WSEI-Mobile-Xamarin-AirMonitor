@@ -1,67 +1,61 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AirMonitor.Core.Application.Installation;
 using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Persistence.Entity.Installation;
 using AirMonitor.Persistence.Utility;
+using CommonServiceLocator;
+using InstallationDomain = AirMonitor.Core.Domain.Installation.Installation;
 
 namespace AirMonitor.Persistence.Repository.Installation
 {
     public class InstallationRepository : IInstallationRepository
     {
-        private IDbConnection _connection;
-        private IAddressRepository _addressRepository;
-        private ILocationRepository _locationRepository;
-        private ISponsorRepository _sponsorRepository;
+        private readonly IDbConnection _connection;
+        private readonly ILocationRepository _locationRepository;
+        private readonly IAddressRepository _addressRepository;
+        private readonly ISponsorRepository _sponsorRepository;
 
         public InstallationRepository(IDbConnection connection,
-                                      IAddressRepository addressRepository,
                                       ILocationRepository locationRepository,
+                                      IAddressRepository addressRepository,
                                       ISponsorRepository sponsorRepository)
         {
             _connection = connection;
-            _addressRepository = addressRepository;
             _locationRepository = locationRepository;
+            _addressRepository = addressRepository;
             _sponsorRepository = sponsorRepository;
         }
-        
-        public List<Core.Domain.Installation.Installation> FindAll()
-        {
-            var installations = _connection.Get.Table<InstallationEntity>();
-            _connection.Get.Close();
 
-            return installations.Select(FindReferences).ToList();
+        public InstallationDomain FindById(long id)
+            => FindReferences(_connection.Get.Get<InstallationEntity>(id));
+
+        public List<InstallationDomain> FindAll()
+            => _connection.Get.Table<InstallationEntity>().Select(FindReferences).ToList();
+            
+
+        public InstallationDomain Save(InstallationDomain installation)
+        {
+            installation = installation.WithLocation(_locationRepository.Save(installation.Location))
+                                       .WithAddress(_addressRepository.Save(installation.Address))
+                                       .WithSponsor(_sponsorRepository.Save(installation.Sponsor));
+            return _connection.Get.InsertOrReplace(InstallationEntity.FromDomain(installation)) > 0 ? installation : null;
         }
 
-        public Core.Domain.Installation.Installation FindById(long id)
-        {
-            var installation = _connection.Get.Get<InstallationEntity>(id);
-            _connection.Get.Close();
+        public List<InstallationDomain> SaveAll(List<InstallationDomain> installations)
+            => installations.Select(Save).ToList();
 
-            return FindReferences(installation ?? throw new ArgumentException($"Installation Id({id}) does not exist in database"));
-        }
-
-        public bool Save(Core.Domain.Installation.Installation installation)
+        private InstallationDomain FindReferences(InstallationEntity installation)
         {
-            if (SaveReferences(installation))
+            if (installation == null)
             {
-                var successFlag = _connection.Get.Insert(InstallationEntity.FromDomain(installation));
-                _connection.Get.Close();
-                return successFlag > 0;
+                return null;
             }
-            return false;
-        }
+            var location = _locationRepository.FindById(installation.LocationRef) ?? throw new ArgumentException("Location is null");
+            var address = _addressRepository.FindById(installation.AddressRef)    ?? throw new ArgumentException("Address is null");
+            var sponsor = _sponsorRepository.FindById(installation.SponsorRef)    ?? throw new ActivationException("Sponsor is null");
 
-        private Core.Domain.Installation.Installation FindReferences(InstallationEntity installation)
-            => installation.toDomain(
-                _locationRepository.FindById(installation.LocationRef) ?? throw new ArgumentException("Location from reference is null"),
-                _addressRepository.FindById(installation.AddressRef),
-                _sponsorRepository.FindById(installation.SponsorRef) ?? throw new ArgumentException("Sponsor from reference is null"));
-        
-        private bool SaveReferences(Core.Domain.Installation.Installation installation)
-            => _locationRepository.Save(installation.Location) 
-            && _addressRepository.Save(installation.Address)
-            && _sponsorRepository.Save(installation.Sponsor);
+            return installation.toDomain(location, address, sponsor);
+        }
     }
 }

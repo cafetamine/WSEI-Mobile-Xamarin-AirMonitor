@@ -4,7 +4,7 @@ namespace AirMonitor.Client.Airly.Api.Installation
 {
     public class ApiInstallation
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public ApiLocation Location { get; set; }
         public ApiAddress Address { get; set; }
         public double Elevation { get; set; }

@@ -1,5 +1,5 @@
-﻿using AirMonitor.Infrastructure;
-using AirMonitor.Infrastructure.DI;
+﻿using AirMonitor.Infrastructure.DI;
+using AirMonitor.Persistence.Utility;
 using AirMonitor.Profile;
 using AirMonitor.Views;
 using Xamarin.Forms;
@@ -18,14 +18,21 @@ namespace AirMonitor
         {
             var _appProfile = await AppProfile.Load();
             AppDIContainer.Instance.InitializeWithAppProfile(_appProfile);
+            AppDIContainer.Instance.Resolve<IDbInitializer>().Execute();
             // TODO Async view display before profile is loaded
             MainPage = new NavigationTab();
         }
 
         protected override void OnStart() { }
 
-        protected override void OnSleep() { }
+        private void OnSleep()
+        {
+            AppDIContainer.Instance.Resolve<IDbConnection>().Connect();
+        }
 
-        protected override void OnResume() { }
+        private void OnResume()
+        {
+            AppDIContainer.Instance.Resolve<IDbConnection>().Disconnect();
+        }
     }
 }

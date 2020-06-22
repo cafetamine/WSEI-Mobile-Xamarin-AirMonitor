@@ -17,7 +17,7 @@ namespace AirMonitor.Client.Airly.Mock
             return installations;
         }
 
-        public async Task<ApiMeasurement> GetMeasurementForInstallation(int installationId)
+        public async Task<ApiMeasurement> GetMeasurementForInstallation(long installationId)
         {
             var json = AirlyApiMockedMeasurementJson.Get(installationId);
             var measurement = JsonConvert.DeserializeObject<ApiMeasurement>(json);

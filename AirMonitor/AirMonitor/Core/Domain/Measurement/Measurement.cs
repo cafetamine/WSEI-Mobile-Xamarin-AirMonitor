@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using AirMonitor.Core.Domain.Measurement.Item;
 
 namespace AirMonitor.Core.Domain.Measurement
 {
     public class Measurement
     {
-        public long? Id { get; }
+        public long? Id { get; set; }
         public int CurrentDisplayValue { get; }
         public MeasurementItem Current { get; }
         public List<MeasurementItem> History { get; }

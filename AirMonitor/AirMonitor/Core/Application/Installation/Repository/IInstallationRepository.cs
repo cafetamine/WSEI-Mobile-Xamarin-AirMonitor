@@ -1,14 +1,16 @@
 using System.Collections.Generic;
+using InstallationDomain = AirMonitor.Core.Domain.Installation.Installation;
 
 namespace AirMonitor.Core.Application.Installation.Repository
 {
     public interface IInstallationRepository
     {
-        List<Domain.Installation.Installation> FindAll();
+        InstallationDomain FindById(long id);
 
-        Domain.Installation.Installation FindById(long id);
+        List<InstallationDomain> FindAll();
 
-        // TODO returning id?
-        bool Save(Domain.Installation.Installation installation);
+        InstallationDomain Save(InstallationDomain installation);
+
+        List<InstallationDomain> SaveAll(List<InstallationDomain> installations);
     }
 }

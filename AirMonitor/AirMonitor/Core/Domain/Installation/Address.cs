@@ -1,8 +1,8 @@
 namespace AirMonitor.Core.Domain.Installation
 {
-    public struct Address
+    public class Address
     {
-        public long? Id { get; }
+        public long? Id { get; private set; }
         public string Country { get; }
         public string City { get; }
         public string Street { get; }
@@ -27,6 +27,12 @@ namespace AirMonitor.Core.Domain.Installation
         }
         
         public string Description => $"{Street} {Number}, {City}";
+
+        public Address WithId(long id)
+        {
+            Id = id;
+            return this;
+        }
 
         public static Address Create(string country,
                                      string city,

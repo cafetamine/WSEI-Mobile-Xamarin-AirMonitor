@@ -6,7 +6,6 @@ namespace AirMonitor.Core.Application.Installation.Repository
     {
         LocationMapping FindById(long id);
 
-        // TODO returning id?
-        bool Save(LocationMapping location);
+        LocationMapping Save(LocationMapping location);
     }
 }

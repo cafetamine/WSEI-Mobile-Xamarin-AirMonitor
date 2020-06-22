@@ -1,4 +1,3 @@
-using AirMonitor.Core.Application.Installation;
 using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Core.Domain.Installation;
 using AirMonitor.Persistence.Entity.Installation;
@@ -16,17 +15,15 @@ namespace AirMonitor.Persistence.Repository.Installation
         }
         
         public Sponsor FindById(long id)
-        {
-            var sponsor = _connection.Get.Get<SponsorEntity>(id);
-            _connection.Get.Close();
-            return sponsor?.ToDomain();
-        }
+            => _connection.Get.Get<SponsorEntity>(id)?.ToDomain();
 
-        public bool Save(Sponsor sponsor)
+        public Sponsor Save(Sponsor sponsor)
         {
-            var successFlag = _connection.Get.Insert(SponsorEntity.FromDomain(sponsor));
-            _connection.Get.Close();
-            return successFlag > 0;
+            if (_connection.Get.InsertOrReplace(SponsorEntity.FromDomain(sponsor)) > 0)
+            {
+                return sponsor;
+            }
+            return null;
         }
     }
 }

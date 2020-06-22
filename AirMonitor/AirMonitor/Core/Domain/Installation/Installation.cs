@@ -2,19 +2,20 @@ namespace AirMonitor.Core.Domain.Installation
 {
     public class Installation
     {
-        public int Id { get; }
-        public LocationMapping Location { get; }
-        public Address Address { get; }
+        public long Id { get; }
         public double Elevation { get; }
-        public Sponsor Sponsor { get; }
         public bool IsAirlyInstallation { get; }
+        public LocationMapping Location { get; private set; }
+        public Address Address { get; private set; }
+        public Sponsor Sponsor { get; private set; }
+        
 
-        public Installation(int id,
+        public Installation(long id,
+                            double elevation,
+                            bool isAirlyInstallation,
                             LocationMapping location,
                             Address address,
-                            double elevation,
-                            Sponsor sponsor,
-                            bool isAirlyInstallation)
+                            Sponsor sponsor)
         {
             Id = id;
             Location = location;
@@ -23,13 +24,31 @@ namespace AirMonitor.Core.Domain.Installation
             Sponsor = sponsor;
             IsAirlyInstallation = isAirlyInstallation;
         }
+
+        public Installation WithLocation(LocationMapping location)
+        {
+            Location = location;
+            return this;
+        }
         
-        public static Installation Create(int id,
+        public Installation WithAddress(Address address)
+        {
+            Address = address;
+            return this;
+        }
+        
+        public Installation WithSponsor(Sponsor sponsor)
+        {
+            Sponsor = sponsor;
+            return this;
+        }
+
+        public static Installation Create(long id,
+                                          double elevation,
+                                          bool isAirlyInstallation,
                                           LocationMapping location,
                                           Address address,
-                                          double elevation,
-                                          Sponsor sponsor,
-                                          bool isAirlyInstallation)
-            => new Installation(id, location, address, elevation, sponsor, isAirlyInstallation);
+                                          Sponsor sponsor)
+            => new Installation(id, elevation, isAirlyInstallation, location, address,  sponsor);
     }
 }

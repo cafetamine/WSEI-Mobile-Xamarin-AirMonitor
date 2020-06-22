@@ -7,6 +7,6 @@ namespace AirMonitor.Core.Application.Installation.Repository
         Sponsor FindById(long id);
 
         // TODO returning id?
-        bool Save(Sponsor sponsor);
+        Sponsor Save(Sponsor sponsor);
     }
 }

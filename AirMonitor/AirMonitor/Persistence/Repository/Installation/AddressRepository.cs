@@ -1,4 +1,3 @@
-using AirMonitor.Core.Application.Installation;
 using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Core.Domain.Installation;
 using AirMonitor.Persistence.Entity.Installation;
@@ -16,17 +15,15 @@ namespace AirMonitor.Persistence.Repository.Installation
         }
 
         public Address FindById(long id)
-        {
-            var address = _connection.Get.Get<AddressEntity>(id);
-            _connection.Get.Close();
-            return address.ToDomain();
-        }
+            => _connection.Get.Get<AddressEntity>(id)?.ToDomain();
 
-        public bool Save(Address address)
+        public Address Save(Address address)
         {
-            var successFlag = _connection.Get.Insert(AddressEntity.FromDomain(address));
-            _connection.Get.Close();
-            return successFlag > 0;
+            if (_connection.Get.InsertOrReplace(AddressEntity.FromDomain(address)) > 0)
+            {
+                return address.WithId(_connection.LastIndex);
+            }
+            return null;
         }
     }
 }

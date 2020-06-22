@@ -2,54 +2,58 @@ using System;
 using AirMonitor.Core.Domain.Installation;
 using SQLite;
 
+using InstallationDomain = AirMonitor.Core.Domain.Installation.Installation;
+
 namespace AirMonitor.Persistence.Entity.Installation
 {
     public class InstallationEntity
     {
         [PrimaryKey]
-        public int Id { get; set; }
+        public long Id { get; set; }
+        public double Elevation { get; set; }
+        public bool IsAirlyInstallation { get; set; }
         public long LocationRef { get; set; }
         public long AddressRef { get; set; }
-        public double Elevation { get; set; }
         public long SponsorRef { get; set; }
-        public bool IsAirlyInstallation { get; set; }
+        
 
         public InstallationEntity()
         {
             // for serialization
         }
         
-        private InstallationEntity(int id,
+        private InstallationEntity(long id,
+                                   double elevation,
+                                   bool isAirlyInstallation,
                                    long locationRef,
                                    long addressRef,
-                                   double elevation,
-                                   long sponsorRef,
-                                   bool isAirlyInstallation)
+                                   long sponsorRef)
         {
             Id = id;
+            Elevation = elevation;
+            IsAirlyInstallation = isAirlyInstallation;
             LocationRef = locationRef;
             AddressRef = addressRef;
-            Elevation = elevation;
             SponsorRef = sponsorRef;
-            IsAirlyInstallation = isAirlyInstallation;
+            
         }
 
-        public Core.Domain.Installation.Installation toDomain(LocationMapping location,
-                                                              Address address,
-                                                              Sponsor sponsor)
-            => new Core.Domain.Installation.Installation(Id,
-                                                         location,
-                                                         address,
-                                                         Elevation,
-                                                         sponsor,
-                                                         IsAirlyInstallation);
+        public InstallationDomain toDomain(LocationMapping location,
+                                           Address address,
+                                           Sponsor sponsor)
+            => new InstallationDomain(Id,
+                                      Elevation,
+                                      IsAirlyInstallation,
+                                      location,
+                                      address,
+                                      sponsor);
 
-        public static InstallationEntity FromDomain(Core.Domain.Installation.Installation installation)
+        public static InstallationEntity FromDomain(InstallationDomain installation)
             => new InstallationEntity(installation.Id,
+                                      installation.Elevation,
+                                      installation.IsAirlyInstallation,
                                       installation.Location.Id ?? throw new ArgumentException("Location reference set to null"),
                                       installation.Address.Id ?? throw new ArgumentException("Address reference set to null"),
-                                      installation.Elevation,
-                                      installation.Sponsor.Id, // sponsor id is set from airly api
-                                      installation.IsAirlyInstallation);
+                                      installation.Sponsor.Id);
     }
 }
