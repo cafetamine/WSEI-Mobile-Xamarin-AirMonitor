@@ -41,8 +41,7 @@ namespace AirMonitor.Persistence.Repository.Measurement.Item
                               ).ToList();
 
         public List<MeasurementItem> SaveAll(List<MeasurementItem> items, long measurementId)
-            => items.Select(item => Save(item, measurementId))
-                    .ToList();
+            => items.Select(item => Save(item, measurementId)).ToList();
 
         public MeasurementItem Save(MeasurementItem item, long measurementId)
         {

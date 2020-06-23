@@ -4,8 +4,6 @@ namespace AirMonitor.Persistence.Entity.Measurement
     {
         public long? Id { get; set; }
         public int CurrentDisplayValue { get; set; }
-        public long CurrentRef { get; set; }
-
         private long InstallationRef { get; set;}
 
         public MeasurementEntity()
@@ -15,12 +13,10 @@ namespace AirMonitor.Persistence.Entity.Measurement
 
         private MeasurementEntity(long? id,
                                  int currentDisplayValue,
-                                 long currentRef,
                                  long installationRef)
         {
             Id = id;
             CurrentDisplayValue = currentDisplayValue;
-            CurrentRef = currentRef;
             InstallationRef = installationRef;
         }
     }
