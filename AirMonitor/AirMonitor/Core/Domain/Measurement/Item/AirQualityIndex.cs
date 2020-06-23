@@ -2,7 +2,7 @@ namespace AirMonitor.Core.Domain.Measurement.Item
 {
     public class AirQualityIndex
     {
-        public long? Id { get; }
+        public long? Id { get; private set; }
         public string Name { get; }
         public double? Value { get; }
         public string Level { get; }
@@ -25,6 +25,12 @@ namespace AirMonitor.Core.Domain.Measurement.Item
             Description = description;
             Advice = advice;
             Color = color;
+        }
+        
+        public AirQualityIndex WithId(long id)
+        {
+            Id = id;
+            return this;
         }
 
         public static AirQualityIndex Create(string name,

@@ -2,7 +2,7 @@ namespace AirMonitor.Core.Domain.Measurement.Item
 {
     public class MeasurementValue
     {
-        public long? Id { get; }
+        public long? Id { get; private set; }
         public string Name { get; }
         public double Value { get; }
 
@@ -11,6 +11,12 @@ namespace AirMonitor.Core.Domain.Measurement.Item
             Id = id;
             Name = name;
             Value = value;
+        }
+        
+        public MeasurementValue WithId(long id)
+        {
+            Id = id;
+            return this;
         }
 
         public static MeasurementValue Create(string name, double value)

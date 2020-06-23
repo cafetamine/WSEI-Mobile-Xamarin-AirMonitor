@@ -2,7 +2,7 @@ namespace AirMonitor.Core.Domain.Measurement.Item
 {
     public class AirQualityStandard
     {
-        public long? Id { get; }
+        public long? Id { get; private set; }
         public string Name { get; }
         public string Pollutant { get; }
         public double Limit { get; }
@@ -22,6 +22,12 @@ namespace AirMonitor.Core.Domain.Measurement.Item
             Limit = limit;
             Percent = percent;
             Averaging = averaging;
+        }
+        
+        public AirQualityStandard WithId(long id)
+        {
+            Id = id;
+            return this;
         }
 
         public static AirQualityStandard Create(string name,
