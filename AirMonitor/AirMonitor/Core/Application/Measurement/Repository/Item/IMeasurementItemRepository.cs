@@ -11,5 +11,7 @@ namespace AirMonitor.Core.Application.Measurement.Repository.Item
         List<MeasurementItem> SaveAll(List<MeasurementItem> items, long measurementId);
 
         MeasurementItem Save(MeasurementItem item, long measurementId);
+        
+        void DeleteAll();
     }
 }

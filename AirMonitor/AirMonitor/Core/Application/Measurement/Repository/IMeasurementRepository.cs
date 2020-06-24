@@ -12,5 +12,7 @@ namespace AirMonitor.Core.Application.Measurement.Repository
         MeasurementDomain Save(MeasurementDomain measurement);
 
         List<MeasurementDomain> SaveAll(List<MeasurementDomain> measurements);
+
+        void DeleteAll();
     }
 }

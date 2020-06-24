@@ -74,5 +74,11 @@ namespace AirMonitor.Persistence.Measurement
             var items = _itemRepository.FindAllByMeasurementId(measurement.Id ?? throw new ArgumentException("Measurement id is null"));
             return measurement.ToDomain(items, installation);
         }
+        
+        public void DeleteAll()
+        {
+            _connection.Get.DeleteAll<MeasurementEntity>();
+            _itemRepository.DeleteAll();
+        } 
     }
 }

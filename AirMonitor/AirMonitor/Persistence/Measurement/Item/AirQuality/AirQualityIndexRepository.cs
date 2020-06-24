@@ -10,6 +10,7 @@ namespace AirMonitor.Persistence.Measurement.Item.AirQuality
     public class AirQualityIndexRepository : IAirQualityIndexRepository
     {
         private readonly IDbConnection _connection;
+        private Type type = typeof(AirQualityIndexEntity);
 
         public AirQualityIndexRepository(IDbConnection connection)
         {
@@ -25,6 +26,11 @@ namespace AirMonitor.Persistence.Measurement.Item.AirQuality
                               .Where(index => index.MeasurementItemRef == measurementItemId)
                               .Select(index => index.ToDomain())
                               .ToList();
+
+        public void DeleteAll()
+        {
+            _connection.Get.DeleteAll<AirQualityIndexEntity>();
+        }
 
         private AirQualityIndex Save(AirQualityIndex index, long measurementItemId)
         {

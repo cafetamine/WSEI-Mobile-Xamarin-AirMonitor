@@ -26,6 +26,11 @@ namespace AirMonitor.Persistence.Measurement.Item.AirQuality
                               .Select(standard => standard.ToDomain())
                               .ToList();
 
+        public void DeleteAll()
+        {
+            _connection.Get.DeleteAll<AirQualityStandardEntity>();
+        }
+
         private AirQualityStandard Save(AirQualityStandard standard, long measurementItemId)
         {
             if (_connection.Get.Insert(AirQualityStandardEntity.FromDomain(standard, measurementItemId)) > 0)

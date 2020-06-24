@@ -26,6 +26,11 @@ namespace AirMonitor.Persistence.Measurement.Item.Value
                               .Select(value => value.ToDomain())
                               .ToList();
 
+        public void DeleteAll()
+        {
+            _connection.Get.DeleteAll<MeasurementValueEntity>();
+        }        
+        
         private MeasurementValue Save(MeasurementValue value, long measurementItemId)
         {
             if (_connection.Get.Insert(MeasurementValueEntity.FromDomain(value, measurementItemId)) > 0)

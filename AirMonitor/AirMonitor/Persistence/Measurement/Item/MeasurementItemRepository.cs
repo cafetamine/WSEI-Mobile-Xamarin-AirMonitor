@@ -52,5 +52,13 @@ namespace AirMonitor.Persistence.Measurement.Item
             }
             return null;
         }
+        
+        public void DeleteAll()
+        {
+            _connection.Get.DeleteAll<MeasurementItemEntity>();
+            _indexRepository.DeleteAll();
+            _standardRepository.DeleteAll();
+            _valueRepository.DeleteAll();
+        }   
     }
 }

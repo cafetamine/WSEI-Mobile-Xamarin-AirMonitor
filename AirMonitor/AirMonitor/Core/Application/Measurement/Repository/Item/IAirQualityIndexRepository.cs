@@ -8,5 +8,7 @@ namespace AirMonitor.Core.Application.Measurement.Repository.Item
         List<AirQualityIndex> SaveAllFromMeasurementItem(MeasurementItem item);
 
         List<AirQualityIndex> FindAllyMeasurementItemId(long measurementItemId);
+        
+        void DeleteAll();
     }
 }
