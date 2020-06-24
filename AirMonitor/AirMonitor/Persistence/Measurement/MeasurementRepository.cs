@@ -37,7 +37,7 @@ namespace AirMonitor.Persistence.Measurement
 
         public MeasurementDomain Save(MeasurementDomain measurement)
         {
-            var successFlag = _connection.Get.Insert(measurement);
+            var successFlag = _connection.Get.Insert(MeasurementEntity.FromDomain(measurement));
             if (successFlag <= 0)
             {
                 return null;
