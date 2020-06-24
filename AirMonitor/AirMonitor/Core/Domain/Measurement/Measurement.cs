@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AirMonitor.Core.Domain.Measurement.Item;
 using InstallationDomain = AirMonitor.Core.Domain.Installation.Installation;
@@ -27,6 +28,8 @@ namespace AirMonitor.Core.Domain.Measurement
             Forecast = forecast;
             Installation = installation;
         }
+
+        public bool IsCurrent => DateTime.Compare(DateTime.Now, Current.TillDateTime) < 0;
 
         public Measurement WithId(long id)
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AirMonitor.Client.Airly.Api.Installation;
 using AirMonitor.Client.Airly.Api.Measurement;
@@ -10,11 +11,11 @@ namespace AirMonitor.Client.Airly.Mock
 {
     public class AirlyMockedClient : IAirlyClient
     {
-        public async Task<IEnumerable<ApiInstallation>> GetInstallations(LocationMapping location, double maxDistanceInKm = 3, int maxResults = -1)
+        public async Task<List<ApiInstallation>> GetInstallations(LocationMapping location, double maxDistanceInKm = 3, int maxResults = -1)
         {
             var json = AirlyMockedInstallationsJson.Get();
             var installations = JsonConvert.DeserializeObject<IEnumerable<ApiInstallation>>(json);
-            return installations;
+            return installations.ToList();
         }
 
         public async Task<ApiMeasurement> GetMeasurementForInstallation(long installationId)

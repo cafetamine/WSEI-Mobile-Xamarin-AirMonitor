@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AirMonitor.Client.Airly;
 using AirMonitor.Core.Application.Measurement.Repository;
@@ -21,6 +23,33 @@ namespace AirMonitor.Infrastructure.Measurement
 
         public async Task<List<MeasurementDomain>> GetMeasurements(LocationMapping location, int maxResults = 3)
         {
+            var measurements = ReadMeasurements();
+            if (measurements.Count >= 1)
+            {
+                return new List<MeasurementDomain>(measurements);
+            }
+            ClearMeasurements();
+            measurements = await FetchMeasurements(location, maxResults);
+            measurements = await SaveMeasurements(measurements);
+
+            return new List<MeasurementDomain>(measurements);
+        }
+
+        private List<MeasurementDomain> ReadMeasurements()
+            => _measurementRepository.FindAll()
+                                     .Where(measurement => measurement.IsCurrent)
+                                     .ToList();
+
+        private void ClearMeasurements()
+        {
+            _measurementRepository.DeleteAll();
+        }
+
+        private Task<List<MeasurementDomain>> SaveMeasurements(List<MeasurementDomain> measurements)
+            => Task.Run(() => _measurementRepository.SaveAll(measurements));
+        
+        private async Task<List<MeasurementDomain>> FetchMeasurements(LocationMapping location, int maxResults = 3)
+        {
             var apiInstallations = await _client.GetInstallations(location, maxResults);
             var installations = AirlyApiAdapter.FromApi(apiInstallations);
             var measurements = new List<MeasurementDomain>();
@@ -33,11 +62,7 @@ namespace AirMonitor.Infrastructure.Measurement
                     measurements.Add(AirlyApiAdapter.FromApi(measurement, installation));
                 }
             }
-            
-            // TODO async
-            var measurementSaved = _measurementRepository.Save(measurements[0]);
-
-            return new List<MeasurementDomain>(measurements);
+            return measurements;
         }
     }
 }
