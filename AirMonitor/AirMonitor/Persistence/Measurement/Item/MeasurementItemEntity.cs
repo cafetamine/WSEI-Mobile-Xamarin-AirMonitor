@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using AirMonitor.Core.Domain.Measurement.Item;
+using SQLite;
 
 namespace AirMonitor.Persistence.Measurement.Item
 {
     public class MeasurementItemEntity
     {
+        [PrimaryKey, AutoIncrement]
         public long? Id { get; set; }
         public int Type { get; set; }
         public DateTime FromDateTime { get; set; }

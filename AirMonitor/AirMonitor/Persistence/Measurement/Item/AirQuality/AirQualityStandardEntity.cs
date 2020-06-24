@@ -1,9 +1,11 @@
 using AirMonitor.Core.Domain.Measurement.Item;
+using SQLite;
 
 namespace AirMonitor.Persistence.Measurement.Item.AirQuality
 {
     public class AirQualityStandardEntity
     {
+        [PrimaryKey, AutoIncrement]
         public long? Id { get; set; }
         public string Name { get; set; }
         public string Pollutant { get; set; }

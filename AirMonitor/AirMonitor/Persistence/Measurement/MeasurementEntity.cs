@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AirMonitor.Core.Domain.Measurement.Item;
+using SQLite;
 using MeasurementDomain = AirMonitor.Core.Domain.Measurement.Measurement;
 using InstallationDomain = AirMonitor.Core.Domain.Installation.Installation;
 
@@ -9,6 +10,7 @@ namespace AirMonitor.Persistence.Measurement
 {
     public class MeasurementEntity
     {
+        [PrimaryKey, AutoIncrement]
         public long? Id { get; set; }
         public int CurrentDisplayValue { get; set; }
         public long InstallationRef { get; set;}

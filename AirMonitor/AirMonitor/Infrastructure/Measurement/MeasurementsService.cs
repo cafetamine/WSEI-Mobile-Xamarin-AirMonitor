@@ -35,7 +35,7 @@ namespace AirMonitor.Infrastructure.Measurement
             }
             
             // TODO async
-            measurements = _measurementRepository.SaveAll(measurements);
+            var measurementSaved = _measurementRepository.Save(measurements[0]);
 
             return new List<MeasurementDomain>(measurements);
         }
