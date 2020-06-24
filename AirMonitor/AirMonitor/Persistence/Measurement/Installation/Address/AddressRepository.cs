@@ -1,4 +1,3 @@
-using System;
 using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Persistence.Utility;
 
