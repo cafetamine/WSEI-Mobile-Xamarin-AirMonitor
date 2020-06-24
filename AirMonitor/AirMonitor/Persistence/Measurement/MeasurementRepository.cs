@@ -77,8 +77,17 @@ namespace AirMonitor.Persistence.Measurement
         
         public void DeleteAll()
         {
-            _connection.Get.DeleteAll<MeasurementEntity>();
-            _itemRepository.DeleteAll();
+            _connection.BeginTransaction();
+            try
+            {
+                _connection.Get.DeleteAll<MeasurementEntity>();
+                _itemRepository.DeleteAll();
+                _connection.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _connection.RollbackTransaction();
+            }
         } 
     }
 }
