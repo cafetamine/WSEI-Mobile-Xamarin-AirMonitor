@@ -35,6 +35,10 @@ namespace AirMonitor.Persistence.Measurement.Installation
 
         public InstallationDomain Save(InstallationDomain installation)
         {
+            if (ExistsById(installation.Id))
+            {
+                return installation;
+            }
             installation = installation.WithLocation(_locationRepository.Save(installation.Location))
                                        .WithAddress(_addressRepository.Save(installation.Address))
                                        .WithSponsor(_sponsorRepository.Save(installation.Sponsor));
@@ -56,5 +60,8 @@ namespace AirMonitor.Persistence.Measurement.Installation
 
             return installation.toDomain(location, address, sponsor);
         }
+
+        private bool ExistsById(long id)
+            => _connection.Get.Get<InstallationEntity>(id) != null;
     }
 }
