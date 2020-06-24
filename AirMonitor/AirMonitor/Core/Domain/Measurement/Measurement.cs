@@ -28,7 +28,7 @@ namespace AirMonitor.Core.Domain.Measurement
             Installation = installation;
         }
 
-        public Measurement WIthId(long id)
+        public Measurement WithId(long id)
         {
             Id = id;
             return this;

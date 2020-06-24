@@ -36,5 +36,20 @@ namespace AirMonitor.Infrastructure.Persistence
                 _connection = null;
             }
         }
+
+        public void BeginTransaction()
+        {
+            Get.BeginTransaction();
+        }
+
+        public void RollbackTransaction()
+        {
+            Get.Rollback();
+        }
+
+        public void CommitTransaction()
+        {
+            Get.Commit();
+        }
     }
 }

@@ -11,5 +11,11 @@ namespace AirMonitor.Persistence.Utility
         void Connect();
 
         void Disconnect();
+
+        void BeginTransaction();
+
+        void RollbackTransaction();
+
+        void CommitTransaction();
     }
 }

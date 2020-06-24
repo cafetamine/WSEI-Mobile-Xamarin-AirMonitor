@@ -37,17 +37,32 @@ namespace AirMonitor.Persistence.Measurement
 
         public MeasurementDomain Save(MeasurementDomain measurement)
         {
-            var successFlag = _connection.Get.Insert(MeasurementEntity.FromDomain(measurement));
-            if (successFlag <= 0)
+            _connection.BeginTransaction();
+            try
             {
-                return null;
+                var successFlag = _connection.Get.Insert(MeasurementEntity.FromDomain(measurement));
+                if (successFlag <= 0)
+                {
+                    _connection.RollbackTransaction();
+                    return null;
+                }
+
+                var measurementId = _connection.LastIndex;
+                measurement = measurement.WithId(measurementId)
+                                         .WithCurrent(_itemRepository.Save(measurement.Current, measurementId))
+                                         .WithHistory(_itemRepository.SaveAll(measurement.History, measurementId))
+                                         .WithForecast(_itemRepository.SaveAll(measurement.Forecast, measurementId))
+                                         .WithInstallation(_installationRepository.Save(measurement.Installation));
+
+                _connection.CommitTransaction();
+                return measurement;
             }
-            var measurementId = _connection.LastIndex;
-            return measurement.WIthId(measurementId)
-                              .WithCurrent(_itemRepository.Save(measurement.Current, measurementId))
-                              .WithHistory(_itemRepository.SaveAll(measurement.History, measurementId))
-                              .WithForecast(_itemRepository.SaveAll(measurement.Forecast, measurementId))
-                              .WithInstallation(_installationRepository.Save(measurement.Installation));
+            catch (Exception e)
+            {
+                _connection.RollbackTransaction();
+            }
+
+            return measurement;
         }
 
         public List<MeasurementDomain> SaveAll(List<MeasurementDomain> measurements)
