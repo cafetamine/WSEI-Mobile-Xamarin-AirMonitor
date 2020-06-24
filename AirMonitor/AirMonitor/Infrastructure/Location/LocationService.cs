@@ -22,7 +22,7 @@ namespace AirMonitor.Infrastructure.Location
                 if (location != null)
                 {
                     System.Diagnostics.Debug.WriteLine($"Location(latitude={location.Latitude}, longitude={location.Longitude})");
-                    return new LocationMapping(location.Latitude, location.Longitude); 
+                    return LocationMapping.Create(location.Latitude, location.Longitude); 
                 }
 
                 return null;

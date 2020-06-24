@@ -1,5 +1,6 @@
 using AirMonitor.Core.Application.Location;
 using AirMonitor.Core.Application.Measurement;
+using AirMonitor.Core.Application.Measurement.Service;
 using AirMonitor.ViewModels;
 using Xamarin.Forms;
 

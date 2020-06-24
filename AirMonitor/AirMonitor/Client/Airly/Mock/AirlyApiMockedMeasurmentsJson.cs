@@ -2,7 +2,7 @@ namespace AirMonitor.Client.Airly.Mock
 {
     public class AirlyApiMockedMeasurementJson
     {
-        public static string Get(int id)
+        public static string Get(long id)
         {
             if (id == 8077)
             {

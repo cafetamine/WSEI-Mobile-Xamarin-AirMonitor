@@ -1,11 +1,23 @@
 using System;
 using AirMonitor.Client.Airly;
-using AirMonitor.Client.Airly.Client;
 using AirMonitor.Client.Airly.Mock;
+using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Core.Application.Location;
-using AirMonitor.Core.Application.Measurement;
+using AirMonitor.Core.Application.Measurement.Repository;
+using AirMonitor.Core.Application.Measurement.Repository.Item;
+using AirMonitor.Core.Application.Measurement.Service;
 using AirMonitor.Infrastructure.Location;
 using AirMonitor.Infrastructure.Measurement;
+using AirMonitor.Infrastructure.Persistence;
+using AirMonitor.Persistence.Measurement;
+using AirMonitor.Persistence.Measurement.Installation;
+using AirMonitor.Persistence.Measurement.Installation.Address;
+using AirMonitor.Persistence.Measurement.Installation.Loaction;
+using AirMonitor.Persistence.Measurement.Installation.Sponsor;
+using AirMonitor.Persistence.Measurement.Item;
+using AirMonitor.Persistence.Measurement.Item.AirQuality;
+using AirMonitor.Persistence.Measurement.Item.Value;
+using AirMonitor.Persistence.Utility;
 using AirMonitor.Profile;
 using Autofac;
 
@@ -19,8 +31,6 @@ namespace AirMonitor.Infrastructure.DI
         private IContainer _container;
         private ContainerBuilder _builder;
 
-        private IAirlyClient _airlyClient;
-        
         private AppDIContainer()
         {
             _builder = new ContainerBuilder();
@@ -30,14 +40,32 @@ namespace AirMonitor.Infrastructure.DI
         {
             // Configurations
             _builder.Register(component => appProfile).As<IAppProfile>().SingleInstance();
+            
+            // Database
+            _builder.RegisterType<DbConnection>().As<IDbConnection>().SingleInstance();
+            _builder.RegisterType<DbInitializer>().As<IDbInitializer>().SingleInstance();
+            
+            // Installation repositories
+            _builder.RegisterType<AddressRepository>().As<IAddressRepository>().SingleInstance();
+            _builder.RegisterType<LocationRepository>().As<ILocationRepository>().SingleInstance();
+            _builder.RegisterType<SponsorRepository>().As<ISponsorRepository>().SingleInstance();
+            _builder.RegisterType<InstallationRepository>().As<IInstallationRepository>().SingleInstance();
+            
+            // Measurement repositories
+            _builder.RegisterType<AirQualityIndexRepository>().As<IAirQualityIndexRepository>().SingleInstance();
+            _builder.RegisterType<AirQualityStandardRepository>().As<IAirQualityStandardRepository>().SingleInstance();
+            _builder.RegisterType<MeasurementValueRepository>().As<IMeasurementItemValueRepository>().SingleInstance();
+            _builder.RegisterType<MeasurementItemRepository>().As<IMeasurementItemRepository>().SingleInstance();
+            _builder.RegisterType<MeasurementRepository>().As<IMeasurementRepository>().SingleInstance();
+            
 
             // Clients
-//            _builder.Register(component => CreateAirlyClient(appProfile)).As<IAirlyClient>();
-            _builder.RegisterType<AirlyMockedClient>().As<IAirlyClient>();
+//            _builder.Register(component => CreateAirlyClient(appProfile)).As<IAirlyClient>().SingleInstance();
+            _builder.RegisterType<AirlyMockedClient>().As<IAirlyClient>().SingleInstance();
 
             // Services
-            _builder.RegisterType<LocationService>().As<ILocationService>();
-            _builder.RegisterType<MeasurementsService>().As<IMeasurementsService>();
+            _builder.RegisterType<LocationService>().As<ILocationService>().SingleInstance();
+            _builder.RegisterType<MeasurementsService>().As<IMeasurementsService>().SingleInstance();
 
             _container = _builder.Build();
         }

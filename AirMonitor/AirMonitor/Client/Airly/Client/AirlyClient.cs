@@ -26,7 +26,7 @@ namespace AirMonitor.Client.Airly.Client
             _httpClient = httpClient; 
         }
 
-        public async Task<IEnumerable<ApiInstallation>> GetInstallations(LocationMapping location, double maxDistanceInKm = 1, int maxResults = -1)
+        public async Task<List<ApiInstallation>> GetInstallations(LocationMapping location, double maxDistanceInKm = 1, int maxResults = -1)
         {
             if (location == null)
             {
@@ -43,10 +43,10 @@ namespace AirMonitor.Client.Airly.Client
             });
             var url = _options.GetUrl(AirlyApiClientFunction.GetInstallations, query);
             var response = await GetHttpResponseAsync<IEnumerable<ApiInstallation>>(url);
-            return response;
+            return response.ToList();
         }
 
-        public async Task<ApiMeasurement> GetMeasurementForInstallation(int installationId)
+        public async Task<ApiMeasurement> GetMeasurementForInstallation(long installationId)
         {
             var query = HttpUrlBuilder.GetQuery(new Dictionary<string, object>
             {
