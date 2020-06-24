@@ -37,36 +37,39 @@ namespace AirMonitor.Persistence.Measurement
 
         public MeasurementDomain Save(MeasurementDomain measurement)
         {
-            _connection.BeginTransaction();
-            try
+            var successFlag = _connection.Get.Insert(MeasurementEntity.FromDomain(measurement));
+            if (successFlag <= 0)
             {
-                var successFlag = _connection.Get.Insert(MeasurementEntity.FromDomain(measurement));
-                if (successFlag <= 0)
-                {
-                    _connection.RollbackTransaction();
-                    return null;
-                }
-
-                var measurementId = _connection.LastIndex;
-                measurement = measurement.WithId(measurementId)
-                                         .WithCurrent(_itemRepository.Save(measurement.Current, measurementId))
-                                         .WithHistory(_itemRepository.SaveAll(measurement.History, measurementId))
-                                         .WithForecast(_itemRepository.SaveAll(measurement.Forecast, measurementId))
-                                         .WithInstallation(_installationRepository.Save(measurement.Installation));
-
-                _connection.CommitTransaction();
-                return measurement;
-            }
-            catch (Exception e)
-            {
-                _connection.RollbackTransaction();
+                return null;
             }
 
+            var measurementId = _connection.LastIndex;
+            measurement = measurement.WithId(measurementId)
+                                     .WithCurrent(_itemRepository.Save(measurement.Current, measurementId))
+                                     .WithHistory(_itemRepository.SaveAll(measurement.History, measurementId))
+                                     .WithForecast(_itemRepository.SaveAll(measurement.Forecast, measurementId))
+                                     .WithInstallation(_installationRepository.Save(measurement.Installation));
+            
             return measurement;
         }
 
         public List<MeasurementDomain> SaveAll(List<MeasurementDomain> measurements)
-            => measurements.Select(Save).ToList();
+        {
+            _connection.BeginTransaction();
+            try
+            {
+                measurements = measurements.Select(Save).ToList();
+                // Not really commiting tbh some nulls might come in fucking hate c#
+                _connection.CommitTransaction();
+                return measurements;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.StackTrace);
+                _connection.RollbackTransaction();
+                return null;
+            }
+        }
 
         private MeasurementDomain FindReferences(MeasurementEntity measurement)
         {

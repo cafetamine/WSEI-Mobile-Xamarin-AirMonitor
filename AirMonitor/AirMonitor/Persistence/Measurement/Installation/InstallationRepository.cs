@@ -62,6 +62,6 @@ namespace AirMonitor.Persistence.Measurement.Installation
         }
 
         private bool ExistsById(long id)
-            => _connection.Get.Get<InstallationEntity>(id) != null;
+            => _connection.Get.Table<InstallationEntity>().Any(installation => installation.Id == id);
     }
 }
