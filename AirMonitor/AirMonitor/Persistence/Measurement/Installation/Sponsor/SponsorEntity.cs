@@ -1,7 +1,6 @@
-using AirMonitor.Core.Domain.Installation;
 using SQLite;
 
-namespace AirMonitor.Persistence.Entity.Installation
+namespace AirMonitor.Persistence.Measurement.Installation.Sponsor
 {
     public class SponsorEntity
     {
@@ -33,15 +32,15 @@ namespace AirMonitor.Persistence.Entity.Installation
             DisplayName = displayName;
         }
         
-        public Sponsor ToDomain()
-            => new Sponsor(Id,
+        public Core.Domain.Installation.Sponsor ToDomain()
+            => new Core.Domain.Installation.Sponsor(Id,
                            Name, 
                            Description, 
                            SponsorLogoUrl,
                            SponsorWebsiteUrl,
                            DisplayName);
 
-        public static SponsorEntity FromDomain(Sponsor sponsor)
+        public static SponsorEntity FromDomain(Core.Domain.Installation.Sponsor sponsor)
             => new SponsorEntity(sponsor.Id,
                                  sponsor.Name,
                                  sponsor.Description,

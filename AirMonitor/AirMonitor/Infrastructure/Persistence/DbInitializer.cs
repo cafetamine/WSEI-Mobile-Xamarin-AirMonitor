@@ -1,4 +1,7 @@
-using AirMonitor.Persistence.Entity.Installation;
+using AirMonitor.Persistence.Measurement.Installation;
+using AirMonitor.Persistence.Measurement.Installation.Address;
+using AirMonitor.Persistence.Measurement.Installation.Loaction;
+using AirMonitor.Persistence.Measurement.Installation.Sponsor;
 using AirMonitor.Persistence.Utility;
 
 namespace AirMonitor.Infrastructure.Persistence

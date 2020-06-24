@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AirMonitor.Core.Application.Installation.Repository;
-using AirMonitor.Persistence.Entity.Installation;
 using AirMonitor.Persistence.Utility;
 using CommonServiceLocator;
 using InstallationDomain = AirMonitor.Core.Domain.Installation.Installation;
 
-namespace AirMonitor.Persistence.Repository.Installation
+namespace AirMonitor.Persistence.Measurement.Installation
 {
     public class InstallationRepository : IInstallationRepository
     {

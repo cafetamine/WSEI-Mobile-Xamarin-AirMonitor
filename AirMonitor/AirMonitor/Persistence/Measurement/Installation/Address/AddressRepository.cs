@@ -1,9 +1,7 @@
 using AirMonitor.Core.Application.Installation.Repository;
-using AirMonitor.Core.Domain.Installation;
-using AirMonitor.Persistence.Entity.Installation;
 using AirMonitor.Persistence.Utility;
 
-namespace AirMonitor.Persistence.Repository.Installation
+namespace AirMonitor.Persistence.Measurement.Installation.Address
 {
     public class AddressRepository : IAddressRepository
     {
@@ -14,10 +12,10 @@ namespace AirMonitor.Persistence.Repository.Installation
             _connection = connection;
         }
 
-        public Address FindById(long id)
+        public Core.Domain.Installation.Address FindById(long id)
             => _connection.Get.Get<AddressEntity>(id)?.ToDomain();
 
-        public Address Save(Address address)
+        public Core.Domain.Installation.Address Save(Core.Domain.Installation.Address address)
         {
             if (_connection.Get.InsertOrReplace(AddressEntity.FromDomain(address)) > 0)
             {

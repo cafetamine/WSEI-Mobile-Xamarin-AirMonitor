@@ -1,7 +1,7 @@
 using AirMonitor.Core.Domain.Installation;
 using SQLite;
 
-namespace AirMonitor.Persistence.Entity.Installation
+namespace AirMonitor.Persistence.Measurement.Installation.Loaction
 {
     public class LocationEntity
     {

@@ -4,11 +4,10 @@ using System.Linq;
 using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Core.Application.Measurement.Repository;
 using AirMonitor.Core.Application.Measurement.Repository.Item;
-using AirMonitor.Persistence.Entity.Measurement;
 using AirMonitor.Persistence.Utility;
 using MeasurementDomain = AirMonitor.Core.Domain.Measurement.Measurement;
 
-namespace AirMonitor.Persistence.Repository.Measurement
+namespace AirMonitor.Persistence.Measurement
 {
     public class MeasurementRepository : IMeasurementRepository
     {

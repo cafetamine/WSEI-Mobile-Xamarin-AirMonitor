@@ -1,10 +1,9 @@
 using System;
 using AirMonitor.Core.Domain.Installation;
 using SQLite;
-
 using InstallationDomain = AirMonitor.Core.Domain.Installation.Installation;
 
-namespace AirMonitor.Persistence.Entity.Installation
+namespace AirMonitor.Persistence.Measurement.Installation
 {
     public class InstallationEntity
     {
@@ -39,8 +38,8 @@ namespace AirMonitor.Persistence.Entity.Installation
         }
 
         public InstallationDomain toDomain(LocationMapping location,
-                                           Address address,
-                                           Sponsor sponsor)
+                                           Core.Domain.Installation.Address address,
+                                           Core.Domain.Installation.Sponsor sponsor)
             => new InstallationDomain(Id,
                                       Elevation,
                                       IsAirlyInstallation,

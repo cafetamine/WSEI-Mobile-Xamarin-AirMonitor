@@ -1,6 +1,6 @@
 using AirMonitor.Core.Domain.Measurement.Item;
 
-namespace AirMonitor.Persistence.Entity.Measurement.Item
+namespace AirMonitor.Persistence.Measurement.Item.AirQuality
 {
     public class AirQualityStandardEntity
     {

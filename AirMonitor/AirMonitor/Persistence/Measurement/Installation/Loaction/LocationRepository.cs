@@ -1,9 +1,8 @@
 using AirMonitor.Core.Application.Installation.Repository;
 using AirMonitor.Core.Domain.Installation;
-using AirMonitor.Persistence.Entity.Installation;
 using AirMonitor.Persistence.Utility;
 
-namespace AirMonitor.Persistence.Repository.Installation
+namespace AirMonitor.Persistence.Measurement.Installation.Loaction
 {
     public class LocationRepository : ILocationRepository
     {

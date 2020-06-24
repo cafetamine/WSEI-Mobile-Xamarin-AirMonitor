@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using AirMonitor.Core.Application.Measurement.Repository.Item;
 using AirMonitor.Core.Domain.Measurement.Item;
-using AirMonitor.Persistence.Entity.Measurement.Item;
 using AirMonitor.Persistence.Utility;
 
-namespace AirMonitor.Persistence.Repository.Measurement.Item
+namespace AirMonitor.Persistence.Measurement.Item.AirQuality
 {
     public class AirQualityIndexRepository : IAirQualityIndexRepository
     {

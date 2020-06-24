@@ -1,9 +1,7 @@
 using AirMonitor.Core.Application.Installation.Repository;
-using AirMonitor.Core.Domain.Installation;
-using AirMonitor.Persistence.Entity.Installation;
 using AirMonitor.Persistence.Utility;
 
-namespace AirMonitor.Persistence.Repository.Installation
+namespace AirMonitor.Persistence.Measurement.Installation.Sponsor
 {
     public class SponsorRepository : ISponsorRepository
     {
@@ -14,10 +12,10 @@ namespace AirMonitor.Persistence.Repository.Installation
             _connection = connection;
         }
         
-        public Sponsor FindById(long id)
+        public Core.Domain.Installation.Sponsor FindById(long id)
             => _connection.Get.Get<SponsorEntity>(id)?.ToDomain();
 
-        public Sponsor Save(Sponsor sponsor)
+        public Core.Domain.Installation.Sponsor Save(Core.Domain.Installation.Sponsor sponsor)
         {
             if (_connection.Get.InsertOrReplace(SponsorEntity.FromDomain(sponsor)) > 0)
             {

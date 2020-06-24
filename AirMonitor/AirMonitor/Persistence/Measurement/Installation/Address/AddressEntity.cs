@@ -1,7 +1,6 @@
-using AirMonitor.Core.Domain.Installation;
 using SQLite;
 
-namespace AirMonitor.Persistence.Entity.Installation
+namespace AirMonitor.Persistence.Measurement.Installation.Address
 {
     public class AddressEntity
     {
@@ -36,8 +35,8 @@ namespace AirMonitor.Persistence.Entity.Installation
             DisplayAddress2 = displayAddress2;
         }
         
-        public Address ToDomain()
-            => new Address(Id,
+        public Core.Domain.Installation.Address ToDomain()
+            => new Core.Domain.Installation.Address(Id,
                            Country,
                            City,
                            Street,
@@ -45,7 +44,7 @@ namespace AirMonitor.Persistence.Entity.Installation
                            DisplayAddress1,
                            DisplayAddress2);
         
-        public static AddressEntity FromDomain(Address address)
+        public static AddressEntity FromDomain(Core.Domain.Installation.Address address)
             => new AddressEntity(address.Id,
                                  address.Country,
                                  address.City,

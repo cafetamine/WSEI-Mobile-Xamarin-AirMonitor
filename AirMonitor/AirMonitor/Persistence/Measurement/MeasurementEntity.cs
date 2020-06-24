@@ -5,7 +5,7 @@ using AirMonitor.Core.Domain.Measurement.Item;
 using MeasurementDomain = AirMonitor.Core.Domain.Measurement.Measurement;
 using InstallationDomain = AirMonitor.Core.Domain.Installation.Installation;
 
-namespace AirMonitor.Persistence.Entity.Measurement
+namespace AirMonitor.Persistence.Measurement
 {
     public class MeasurementEntity
     {
