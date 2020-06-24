@@ -18,7 +18,7 @@ namespace AirMonitor.Core.Domain.Installation
             Id = id;
             return this;
         }
-        
+
         public static LocationMapping Create(double latitude, double longitude)
             => new LocationMapping(null, latitude, longitude);
     }

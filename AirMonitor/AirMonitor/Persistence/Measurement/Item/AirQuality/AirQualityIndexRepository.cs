@@ -17,7 +17,7 @@ namespace AirMonitor.Persistence.Measurement.Item.AirQuality
         }
 
         public List<AirQualityIndex> SaveAllFromMeasurementItem(MeasurementItem item)
-            => item.Indexes.Select(index => Save(index, index.Id ?? throw new ArgumentException("MeasurementItem id is null")))
+            => item.Indexes.Select(index => Save(index, item.Id ?? throw new ArgumentException("MeasurementItem id is null")))
                            .ToList();
 
         public List<AirQualityIndex> FindAllyMeasurementItemId(long measurementItemId)
