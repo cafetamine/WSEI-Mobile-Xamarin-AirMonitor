@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using AirMonitor.Core.Domain.Measurement;
 
-
 namespace AirMonitor.ViewModels
 {
     public class DetailsViewModel : AbstractViewModel
