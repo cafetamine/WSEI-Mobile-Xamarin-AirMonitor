@@ -18,7 +18,7 @@ namespace AirMonitor.Views
         {
             InitializeComponent();
 
-            BindingContext = ViewModelFactory.MakeMapViewModel();
+            BindingContext = ViewModelFactory.MakeMapViewModel(Navigation);
         }
         
         protected override void OnAppearing()
@@ -28,11 +28,6 @@ namespace AirMonitor.Views
             ViewModel.Initialize();
             ViewModel.Pins.ForEach(pin => MeasurementsMap.Pins.Add(pin));
             base.OnAppearing();
-        }
-
-        private void OnPinTapped(object sender, PinClickedEventArgs e)
-        {
-            //ViewModel.InfoWindowClickedCommand.Execute((sender as Pin).Address);
         }
 
         private async Task CenterOnUser(int radius = DefaultRadius)

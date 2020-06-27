@@ -5,17 +5,21 @@ using AirMonitor.Core.Application.Location;
 using AirMonitor.Core.Application.Measurement.Service;
 using AirMonitor.Core.Domain.Installation;
 using AirMonitor.Core.Domain.Measurement;
+using AirMonitor.Views;
+using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace AirMonitor.ViewModels
 {
     public class MapViewModel : AbstractViewModel
     {
+        private INavigation _navigation;
         private IMeasurementsService _measurementsService;
         private ILocationService _locationService;
 
-        public MapViewModel(ILocationService locationService, IMeasurementsService measurementsService)
+        public MapViewModel(INavigation navigation, ILocationService locationService, IMeasurementsService measurementsService)
         {
+            _navigation = navigation;
             _measurementsService = measurementsService;
             _locationService = locationService;
         }
@@ -53,13 +57,22 @@ namespace AirMonitor.ViewModels
         private static Position MapPosition(LocationMapping location)
             => new Position(location.Latitude, location.Longitude);
 
-        private static Pin MapPin(Measurement measurement)
-            => new Pin
+        private Pin MapPin(Measurement measurement)
+        {
+            var pin = new Pin
             {
                 Address = measurement.Installation.Address.Description,
                 Type = PinType.Place,
                 Position = MapPosition(measurement.Installation.Location),
                 Label = $"CAQI: {measurement.CurrentDisplayValue}"
             };
+            pin.MarkerClicked += async (s, args) => { OnGoToDetails(measurement); };
+            return pin;
+        }
+        
+        private void OnGoToDetails(Measurement item)
+        {
+            _navigation.PushAsync(new DetailsPage(item));
+        }
     }
 }

@@ -15,8 +15,9 @@ namespace AirMonitor.Infrastructure.DI
 
         public static DetailsViewModel MakeDetailsViewModel() => new DetailsViewModel();
 
-        public static MapViewModel MakeMapViewModel()
-            => new MapViewModel(locationService:     AppDIContainer.Instance.Resolve<ILocationService>(),
+        public static MapViewModel MakeMapViewModel(INavigation navigation)
+            => new MapViewModel(navigation:          navigation,
+                                locationService:     AppDIContainer.Instance.Resolve<ILocationService>(),
                                 measurementsService: AppDIContainer.Instance.Resolve<IMeasurementsService>());
     }
 }
