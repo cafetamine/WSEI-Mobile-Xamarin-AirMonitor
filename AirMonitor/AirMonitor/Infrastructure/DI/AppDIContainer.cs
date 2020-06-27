@@ -60,8 +60,8 @@ namespace AirMonitor.Infrastructure.DI
             
 
             // Clients
-//            _builder.Register(component => CreateAirlyClient(appProfile)).As<IAirlyClient>().SingleInstance();
-            _builder.RegisterType<AirlyMockedClient>().As<IAirlyClient>().SingleInstance();
+            _builder.Register(component => CreateAirlyClient(appProfile)).As<IAirlyClient>().SingleInstance();
+            //_builder.RegisterType<AirlyMockedClient>().As<IAirlyClient>().SingleInstance();
 
             // Services
             _builder.RegisterType<LocationService>().As<ILocationService>().SingleInstance();

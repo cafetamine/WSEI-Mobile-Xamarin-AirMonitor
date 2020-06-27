@@ -5,7 +5,6 @@ namespace AirMonitor.Core.Domain.Installation
         public long Id { get; }
         public string Name { get; }
         public string Description { get; }
-        // TODO Picasso?
         public string SponsorLogoUrl { get; }
         public string SponsorWebsiteUrl { get; }
         public string DisplayName { get; }
