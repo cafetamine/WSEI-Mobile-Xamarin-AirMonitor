@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AirMonitor.Views.HomePage"
-             Title="Home Page">
+             Title="Near measurements">
     <Grid>
         <ListView ItemsSource="{Binding Items}"
                   ItemTapped="ListViewItemTapped"
