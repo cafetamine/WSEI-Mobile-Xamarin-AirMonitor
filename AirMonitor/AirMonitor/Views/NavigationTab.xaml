@@ -12,6 +12,12 @@
         </x:Arguments>
     </NavigationPage>
     
+    <NavigationPage Title="Map" NavigationPage.HasNavigationBar="False" IconImageSource="icon_map">
+        <x:Arguments>
+            <views:MapPage/>
+        </x:Arguments>
+    </NavigationPage>
+    
     <NavigationPage Title="Settings" NavigationPage.HasNavigationBar="False" IconImageSource="icon_settings">
         <x:Arguments>
             <views:SettingsPage/>

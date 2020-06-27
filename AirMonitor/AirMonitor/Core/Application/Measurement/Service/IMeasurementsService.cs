@@ -8,5 +8,7 @@ namespace AirMonitor.Core.Application.Measurement.Service
     public interface IMeasurementsService
     {
         Task<List<MeasurementDomain>> GetMeasurements(LocationMapping location, int maxResults = 3);
+
+        List<MeasurementDomain> ReadMeasurements();
     }
 }

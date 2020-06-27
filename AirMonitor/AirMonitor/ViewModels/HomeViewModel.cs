@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using AirMonitor.Core.Application.Location;
-using AirMonitor.Core.Application.Measurement;
 using AirMonitor.Core.Application.Measurement.Service;
 using AirMonitor.Core.Domain.Installation;
 using AirMonitor.Core.Domain.Measurement;

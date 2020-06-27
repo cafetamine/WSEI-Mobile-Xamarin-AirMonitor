@@ -69,6 +69,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\icon_home.png" />
     <AndroidResource Include="Resources\drawable-hdpi\icon_info.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\icon_map.png" />
     <AndroidResource Include="Resources\drawable-hdpi\icon_settings.png" />
     <AndroidResource Include="Resources\layout\Tabbar.xml" />
     <AndroidResource Include="Resources\layout\Toolbar.xml" />
