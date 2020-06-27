@@ -1,89 +1,63 @@
-# Laboratorium 1
-## Zagadnienia
-- Warunki zaliczenia
--	Wprowadzenie do Xamarin.Forms
--	Stworzenie pierwszego projektu i omówienie struktury
--	Stworzenie strony z podstawowymi kontrolkami
--	Podstawy gita i GitHuba
+# __WSEI/Mobile/Xamarin__ `AirMonitor`
 
-## Zadania
-### 1.	Stworzenie pierwszego projektu Xamarin.Forms
-- W Visual Studio 2019 kliknij „Create a new project” i wyszukaj “Xamarin.Forms”
-- Wybierz “Mobile App (Xamarin.Forms)” I kliknij Next
-- Wpisz nazwę projektu I kliknij Create
-- W kolejnym okienku wybierz szablon „Blank” i zaznacz platformy Android oraz iOS. Kliknij Ok.
-- Wybierz projekt Androida jako startowy i uruchom go w emulatorze.
-### 2.	Przejrzyj nowy projekt i zapoznaj się z jego elementami
-#### Projekt „AirMonitor”:
-- App.xaml – plik z zasobami globalnymi na poziomie aplikacji
--	App.xaml.cs – punkt wejściowy aplikacji Xamarin.Forms, ustawiamy mu stronę startową, możemy też zareagować na zdarzenia cyklu życia aplikacji
-- MainPage.xaml – Przykładowa główna strona aplikacji (plik definiowania wyglądu)
-- MainPage.xaml.cs - Przykładowa główna strona aplikacji (plik z logiką strony)
-#### Projekt „AirMonitor.Android”:
-- Properties/AndroidManifest.xml – podstawowy plik konfiguracyjny aplikacji Android, dostępny również w formie graficznej z poziomu właściwości projektu
-- Assets – folder przeznaczony do zasobów i mediów, np. pliki dźwiękowe, czy tekstowe.
--	Resources – folder, w którym umieszczamy większość zasobów aplikacji, jak ikony, teksty, style, wygląd stron, itd.
--	MainActivity.cs – Aktywność, punkt wejściowy aplikacji Android
-#### Projekt „AirMonitor.iOS”:
--	Asset Catalogs – miejsce, gdzie dodajemy zasoby aplikacji, jak np. ikony
--	Resources – folder na zasoby, które nie pasują do Asset Catalog, jak launch screen, czcionki, czy pliki dźwiękowe lub konfiguracyjne
--	Resources/LaunchSreen.storyboard – launch screen/splash screen aplikacji, pierwszy ekran, który użytkownik widzi, po kliknięciu w ikonę aplikacji
--	AppDelegate.cs – klasa przetwarzająca zdarzenia systemowe
-- Entitlements.plist – plik, w którym definiujemy dodatkowe usługi i funkcjonalności aplikacji, np. korzystanie z iCloud, powiadomień push, HomeKit
--	Info.plist – plik z ustawieniami aplikacji, np. wersja, nazwa
--	Main.cs – punkt wejściowy aplikacji iOS
-### 3.	Zapoznaj się z narzędziami kontroli wersji w Visual Studio.
-##### Dodaj projekt do kontroli wersji (git):
-- File -> Add to Source Control
-##### Dostosuj opcje gita:
-- W oknie Team Explorer wybierz Settings -> Repository Settings i wprowadź swoje dane (imię i email), które będą powiązane z commitami.
-##### Pierwszy commit:
-- Zrób pierwszą zmianę w kodzie (np. Zmień tekst w MainPage.xml)
-- W Team Explorer wybierz Changes i przejrzyj zmiany.
--	Zmiany mogą być w dwóch stanach przed commitem: unstaged i staged. Zmiany w stanie unstaged nie zostaną zacommitowane, musimy więc przenieść je to stanu staged. Zrobimy to plusem na prawo od napisu Changes lub w menu PPM.
-- Każdy commit musi mieć wiadomość. Wpisujemy wiadomość w polu na górze.
-- Klikamy Commit Staged.
-##### Pamiętajmy, żeby robić commity regularnie, np. po każdej większej zmianie, czy skoczonej funkcjonalności (lub jeśli jest ona duża to również w trakcie).
-##### Pushowanie zmian:
-- Commity są u nas lokalnie na komputerze. Musimy wypushować zmiany na serwer, żeby inni mogli je pobierać.
-- Załóż konto na GitHubie: https://github.com
-- Stwórz tam repozytorium (publiczne)
-- Skopiuj adres repozytorium w formacie: https://github.com/[nazwa_uzytkownika]/[nazwa_repozytorium].git)
--	W Visual Studio w Team Explorer -> Settings -> Repository Settings -> Remotes dodaj adres z nazwą “origin” (bez cudzysłowów)
--	W Team Explorer wybierz Sync i w sekcji Outgoing commits kliknij Push
--	Będziesz musiał podać login i hasło do GitHuba. Po tym kroku twoje commity będą dostępne z portalu.
-##### Projekt z zajęć i własny powinny być na bieżąco aktualizowane na GitHubie.
-### 4.	Stworzenie strony szczegółów z podstawowymi kontrolkami
-##### Wygląd strony jak na zrzucie poniżej
-##### Użyte kontrolki: ContentPage, ScrollView, StackLayout, Grid, Frame, Label, Span, Image, BoxView, Slider
-##### Podpowiedzi:
-- Przetestuj aplikację na urządzeniu z mały ekranem/rozdzielczością. Czy zawartość można przewinąć tak, żeby zobaczyć to co nie mieści się na ekranie?
-- Całość ułożona jest od góry do dołu w liniach z odstępami. Który layout ma takie zachowanie?
-- Jeden z layoutów ma właściwość do zaokrąglenia rogów - możesz go użyć do widoku z zielonym kółkiem.
-- Label może wyświetlać sforamtowany tekst (np. część pogrubiona lub z innym rozmiarem czcionki). Użyj tej właściwości zamiast tworzyć kilka Labeli obok siebie.
-- W Sliderze dla ciśnienia będziesz musiał ustawić wartość minimalną np. na 900 i maksymalną np. na 1100. Czy kolejność tych właściwości ma znaczenie?
--	Widoki dla PM 2,5 oraz PM 10 mają równą szerokość i pionową linię między nimi. Jakiego layoutu użyjesz? Musisz zdefiniować 3 kolumny.
--	Ikonka “?” po prawej stronie to przycisk - niech po naciśnięciu wyświetla popup z przykładowym wyjaśnieniem czym jest CAQI. Możesz tu użyć wbudowanej metody DisplayAlert.
--	Podwidoki dla PM 2,5, PM 10 i kolejnych wyglądają tak samo - mają tytuł i pewną zawartość - stwórz dla nich nową kontrolkę (w oddzielnym pliku) i zaembedu w widoku głównym. W kontrolce użyj BindableProperty w dwóch właściwościach - jedna do zbindowania tytułu, druga do zbindowania dowolnej zawartości (możesz to zostawić na koniec).
+## Synopsis
 
-### Efekt końcowy: 
-<img src="https://github.com/matteozajac/wsei-xamarin/blob/lab1/lab1_screen.png" width="250">
+`AirMonitor` is a semester project on university for subject "Programming mobile application". Project was provided partially done, with instructions how to accomplish next steps.
 
-## Przydatne materiały: 
-- Kontrolki (strony, layouty, widoki): https://docs.microsoft.com/pl-pl/xamarin/xamarin-forms/user-interface/controls/ 
-- Formatowanie tekstu w Label: https://docs.microsoft.com/pl-pl/xamarin/xamarin-forms/user-interface/text/label#formatted-text 
-- Własne kontrolki: https://docs.microsoft.com/pl-pl/xamarin/xamarin-forms/user-interface/layouts/contentview 
-- Podstawy XAML: https://docs.microsoft.com/pl-pl/xamarin/xamarin-forms/xaml/xaml-basics/
+Fallowing instructions can be found under project - [directory](./AirMonitorDocs/Instructions/).
 
-## Dodatkowe materiały: 
-- Cykl życia aplikacji Xamarin.Forms: https://docs.microsoft.com/pl-pl/xamarin/xamarin-forms/app-fundamentals/app-lifecycle 
-- Android Resources: https://docs.microsoft.com/pl-pl/xamarin/android/app-fundamentals/resources-in-android/?tabs=windows 
-- Android Manifest w Xamarinie: https://docs.microsoft.com/pl-pl/xamarin/android/platform/android-manifest
+Project base source - [wsei-xamarin](https://github.com/matteozajac/wsei-xamarin/).
 
-## Instalacja Xamarina
-- Instrukcja instalacji: https://docs.microsoft.com/pl-pl/xamarin/get-started/installation/windows
-- Jeśli mamy już zainstalowane Android Studio, to Visual Studio najprawdopodobniej zainstaluje SDK Androida w innym miejscu, a więc emulatory z Android Studio nie będą widoczne w Visualu - można taki emulator włączyć z linii komend lub z Android Studio i wtedy będzie dostępny z Visuala
-- Dodawanie nowych emulatorów Androida: https://docs.microsoft.com/pl-pl/xamarin/android/get-started/installation/android-emulator/device-manager?tabs=windows&pivots=windows
-- Przyspieszenie sprzętowe dla emulatorów (możesz to sprawdzić, jeśli emulator działa bardzo wolno): https://docs.microsoft.com/pl-pl/xamarin/android/get-started/installation/android-emulator/hardware-acceleration?pivots=windows
-- Popularne problemy z emulatorami: https://docs.microsoft.com/pl-pl/xamarin/android/get-started/installation/android-emulator/troubleshooting?pivots=windows
-- Odpalanie aplikacji Androida na urządzeniu: https://docs.microsoft.com/pl-pl/xamarin/android/get-started/installation/set-up-device-for-development
+## Scope
+
+Project was created for `Android` only.
+
+## Topic
+
+It is a small android application allowing its user to __check current air condition__ in nearby area.
+
+Application integrates with [Airly](https://airly.eu/) to request such data. It also stores it in local database and allows usage of recently requested data until its no longer valid (time passed).
+
+## Stack
+
+- Android
+- c#
+  - System.Net (http client)
+  - Xamarin.Essentials (Loaction)
+  - Xamarin.Forms
+  - Xamarin.Forms.Maps (google-play-services)
+  - Newtonsoft object mapping (JSON)
+  - Autofac (di)
+  - sqlite-net-pcl (database connection and orm)
+- sqlite
+
+## Architecture
+
+Application was created in a specific combination of `MVVM` and `hex` architectures, where layers are provided by `DI Container`.
+
+The fallowing was a result of `attempt to separate different application layers` with as few dependencies as possible. The initial plan was not fully achieved since different layers were not excluded to separate projects or portable modules. Nevertheless `dependency between namespaces is minimal`.
+
+![Architecture diagram](./AirMonitorDocs/Architecture/architecture_diagram.png)
+
+1. __`Core`__
+   - `Domain` - Definitions of application objects and mappings, also __Model__ for __MVVM__ architecture, which probably should be separated further.
+   - `Application` application internal api provided as interfaces. Thanks to this approach for example `ViewModel` does not have to be aware of existence of `Service`, only its external api `IService`.
+
+1. __`Persistance`__
+    - Implementation of database entity mapping objects for orm engine.
+    - Implementation of database connection engine.
+    - Implementation of repositories used to access/save data.
+
+1. __`Client`__
+    - Implementation of generic http connection and response handling.
+    - Implementation of external Airly client.
+
+1. __`ViewModel`__
+   - Gateway between application back logic, and user interaction.
+
+1. __`View`__
+   - Rendering user view.
+   - Noticing user actions, and requesting proper logic from ViewModel.
+
+`Disclaimer` Model have been moved to Core/Domain it would be advisable to add additional dto layer and move domain out of core as Model.
+
