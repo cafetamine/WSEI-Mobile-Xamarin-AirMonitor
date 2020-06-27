@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-             mc:Ignorable="d"
              x:Class="AirMonitor.Views.MapPage"
              Title="Map">
-
+    
     <maps:Map x:Name="MeasurementsMap"
               IsShowingUser="True"
-              ItemsSource="{Binding MapLocations}"
+              ItemsSource="{Binding MapPins}"
               HorizontalOptions="FillAndExpand"
-              VerticalOptions="FillAndExpand">
-        <maps:Map.ItemTemplate>
-            <DataTemplate>
-                <maps:Pin Position="{Binding Position}"
-                          Address="{Binding AddressDescription}"
-                          Label="{Binding StatusDescription}"
-                          InfoWindowClicked="OnPinTapped"/>
-            </DataTemplate>
-        </maps:Map.ItemTemplate>
-    </maps:Map>
+              VerticalOptions="FillAndExpand"/>
 </ContentPage>

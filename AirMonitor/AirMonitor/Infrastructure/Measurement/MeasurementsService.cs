@@ -34,9 +34,9 @@ namespace AirMonitor.Infrastructure.Measurement
             return new List<MeasurementDomain>(measurements);
         }
 
-        private List<MeasurementDomain> ReadMeasurements()
+        public List<MeasurementDomain> ReadMeasurements()
             => _measurementRepository.FindAll()
-                                     .Where(measurement => measurement.IsCurrent)
+                                     //.Where(measurement => measurement.IsCurrent)
                                      .ToList();
 
         private void ClearMeasurements()
